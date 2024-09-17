@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id    String @id @default(uuid())
+  nome  String
+  email String @unique
+  senha String @db.Text
+
+  // Monitor the user's access
+  criadoEm     DateTime  @default(now()) @map("criado_em")
+  atualizadoEm DateTime? @updatedAt @map("atualizado_em")
+  ultimoAcesso DateTime? @map("ultimo_acesso")
+
+  @@index([id])
+  @@index([email])
+}
+
+model UF {
+  uf      String @id @unique
+  aliqInt Float
+  aliqSC  Float
+  freCap  Float
+  freInt  Float
+
+  capital   Cidade? @relation("UF", fields: [capitalId], references: [id])
+  capitalId Int?    @unique
+
+  cidades Cidade[] @relation("UF_Cities")
+}
+
+model Cidade {
+  id   Int    @id @default(autoincrement())
+  nome String
+
+  ufs   UF     @relation("UF_Cities", fields: [uf], references: [uf])
+  uf String
+
+  cidadesUF  UF[]       @relation("UF")
+  cidadesEnd Endereco[] @relation("cidadesEnd")
+}
+
+model Endereco {
+  id         Int     @id @default(autoincrement())
+  cep        String?
+  logradouro String?
+  rua        String?
+  bairro     String?
+
+  cidade   Cidade? @relation("cidadesEnd", fields: [cidadeId], references: [id])
+  cidadeId Int?
+
+  Cliente Cliente @relation("ClienteEnd", fields: [clienteId], references: [id])
+  clienteId Int
+}
+
+model Cliente {
+  id       Int     @id @default(autoincrement())
+  nome     String
+  telefone String?
+  celular  String?
+  cpf      String  @unique
+  rg       String? @unique
+  email    String?
+
+  endereco Endereco[] @relation("ClienteEnd")
+}
