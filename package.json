@@ -12,6 +12,7 @@
     "@hookform/resolvers": "^3.9.0",
     "@prisma/client": "^5.19.1",
     "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.7",
     "bcrypt": "^5.1.1",
     "clsx": "^2.1.1",
     "lib-utils-ts": "^0.0.0-test",
