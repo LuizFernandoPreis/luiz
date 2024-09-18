@@ -7,7 +7,7 @@ import { action } from '@/actions'
 
 const ID_CREDENTIALS_PROVIDER: string = 'auth-email-password';
 export const authConfig: NextAuthOptions = {
-  secret: 'process.env.NEXTAUTH_SECRET',
+  secret: process.env.NEXTAUTH_SECRET,
   pages: { signIn: authLoginRoute },
   providers: [
     CredentialsProvider({
