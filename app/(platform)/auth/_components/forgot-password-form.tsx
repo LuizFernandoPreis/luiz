@@ -1,6 +1,5 @@
 'use client'
 
-import { redefinePassword } from '@/lib/auth/redefine-password'
 import { cn } from '@/lib/utlis'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { InfoIcon } from 'lucide-react'
@@ -25,7 +24,6 @@ export const ForgotPasswordForm = () => {
     const validatedFields = Schema.safeParse(data)
 
     if (validatedFields.success) {
-      await redefinePassword(validatedFields.data)
       setWarn('E-mail enviado com sucesso.')
     } else setWarn('Preencha o campo corretamente.')
   }
