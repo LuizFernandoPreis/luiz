@@ -11,6 +11,7 @@ const config: Config = {
       colors: {
         primary: '#504d4A',
         alternate: '#efebe5',
+        mercury: '#f8f8f8',
       },
     },
   },

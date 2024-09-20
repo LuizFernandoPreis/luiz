@@ -24,8 +24,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     user = await db.usuario.create({
       data: { nome, email, senha: await hashPassword(senha)},
     })
-  } catch {
-    return { error: 'Ocorreu um erro ao criar, tente novamente mais tarde' }
+  } catch(err) {
+    return { error: `Ocorreu um erro ao criar, tente novamente mais tarde ${err}` }
   }
 
   revalidatePath(dashboardRoute)

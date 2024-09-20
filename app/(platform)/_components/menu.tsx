@@ -12,17 +12,17 @@ export const Menu = ({ children: items }: { children: React.ReactNode }) => {
   return (
     <nav className="mx-auto flex min-h-16 max-w-6xl items-center justify-between">
       <Link href="/" className="px-6 py-4">
-        <Image
-          src="/icons/dark-gray-slogan.png"
+        <Image 
+          src="/icons/logosemfundo1.png"
           alt="Logo"
-          width={150}
-          height={0}
+          width={300} // Aumentei a largura da logo
+          height={0} // Manter a altura como 0 para manter a proporção
         />
       </Link>
 
       <ul
         className={cn(
-          'flex w-full items-center justify-between gap-x-4 bg-alternate p-4 text-center uppercase max-lg:sr-only',
+          'flex w-full items-center justify-end gap-x-16 bg-mercury p-4 text-center uppercase max-lg:sr-only',
           !isMenuOpen && 'max-lg:sr-only',
         )}
       >
@@ -61,8 +61,8 @@ export const Menu = ({ children: items }: { children: React.ReactNode }) => {
             <Image
               src="/icons/dark-gray.png"
               alt="Logo"
-              width={48}
-              height={0}
+              width={80} 
+              height={0} 
             />
           </Link>
 
@@ -75,7 +75,7 @@ export const Menu = ({ children: items }: { children: React.ReactNode }) => {
         </div>
 
         <ul
-          className="no-scrollbar flex h-full snap-y flex-col gap-y-4 overflow-y-scroll text-center uppercase *:rounded *:bg-alternate/50 *:px-8 *:py-2"
+          className="no-scrollbar flex h-full snap-y flex-col gap-y-4 overflow-y-scroll text-center uppercase *:rounded *:bg-mercury/50 *:px-8 *:py-2"
           onClick={(e) => {
             if (e.target instanceof HTMLAnchorElement) setIsMenuOpen(false)
           }}
