@@ -30,10 +30,6 @@ export const Menu = ({ children: items }: { children: React.ReactNode }) => {
       </ul>
 
       <div className="mx-4 flex gap-x-4">
-        <Link href="/produtos" className="rounded-full p-2 *:size-6">
-          <SearchIcon />
-        </Link>
-
         <button
           className="rounded-full p-2 *:size-6 lg:sr-only"
           onClick={() => setIsMenuOpen(true)}

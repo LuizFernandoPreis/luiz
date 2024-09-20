@@ -11,7 +11,6 @@ export default async function Home() {
   const session = await getServerSession(authConfig)
     return (
       <main className="flex min-h-screen flex-col  ">
-        {isLogged ? <p>logado como {session?.user?.name}</p> : <></>}
         <HeroSection />
         <Feed />
       </main>
