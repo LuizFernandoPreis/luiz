@@ -18,7 +18,7 @@ export default function TagSearch() {
         <h3 className="font-semibold">Tipo de Contrato</h3>
         <div className="flex flex-row space-x-4">
           {contratoTag.map((tag, i) => (
-            <div className="bg-mercury shadow-md rounded w-max px-1 mt-2 flex align-center justify-center hover:bg-alternate">
+            <div className="bg-mercury shadow-md rounded w-max px-1 mt-2 flex align-center justify-center hover:bg-alternate" key={i}>
               <p className="text-gray-700" key={i} id={String(i)} onClick={handleClick}>
                 {tag}
               </p>
@@ -28,7 +28,7 @@ export default function TagSearch() {
         <h3 className="font-semibold mt-8">Modalidade</h3>
         <div className="flex flex-wrap space-x-4">
           {modalidateTag.map((tag, i) => (
-            <div className="bg-mercury shadow-md rounded w-max px-1 mt-2 flex align-center justify-center hover:bg-alternate">
+            <div className="bg-mercury shadow-md rounded w-max px-1 mt-2 flex align-center justify-center hover:bg-alternate" key={i}>
               <p className="text-gray-700" key={i} id={String(i)} onClick={handleClick}>
                 {tag}
               </p>
@@ -38,7 +38,7 @@ export default function TagSearch() {
         <h3 className="font-semibold mt-8">Senioridade</h3>
         <div className="flex flex-wrap space-x-4">
           {SenioridadeTag.map((tag, i) => (
-            <div className="bg-mercury shadow-md rounded w-max px-1 mt-2 flex align-center justify-center hover:bg-alternate">
+            <div className="bg-mercury shadow-md rounded w-max px-1 mt-2 flex align-center justify-center hover:bg-alternate" key={i}>
               <p className="text-gray-700" key={i} id={String(i)} onClick={handleClick}>
                 {tag}
               </p>
