@@ -19,7 +19,7 @@ export default function TagSearch() {
         <div className="flex flex-row space-x-4">
           {contratoTag.map((tag, i) => (
             <div className="bg-mercury shadow-md rounded w-max px-1 mt-2 flex align-center justify-center hover:bg-alternate">
-              <p className="text-gray-700" id={String(i)} onClick={handleClick}>
+              <p className="text-gray-700" key={i} id={String(i)} onClick={handleClick}>
                 {tag}
               </p>
             </div>
@@ -29,7 +29,7 @@ export default function TagSearch() {
         <div className="flex flex-wrap space-x-4">
           {modalidateTag.map((tag, i) => (
             <div className="bg-mercury shadow-md rounded w-max px-1 mt-2 flex align-center justify-center hover:bg-alternate">
-              <p className="text-gray-700" id={String(i)} onClick={handleClick}>
+              <p className="text-gray-700" key={i} id={String(i)} onClick={handleClick}>
                 {tag}
               </p>
             </div>
@@ -39,7 +39,7 @@ export default function TagSearch() {
         <div className="flex flex-wrap space-x-4">
           {SenioridadeTag.map((tag, i) => (
             <div className="bg-mercury shadow-md rounded w-max px-1 mt-2 flex align-center justify-center hover:bg-alternate">
-              <p className="text-gray-700" id={String(i)} onClick={handleClick}>
+              <p className="text-gray-700" key={i} id={String(i)} onClick={handleClick}>
                 {tag}
               </p>
             </div>
