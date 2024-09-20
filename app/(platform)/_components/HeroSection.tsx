@@ -14,7 +14,7 @@ export default function HeroSection() {
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-2xl lg:mx-0">
                     <h2 className="text-6xl font-bold tracking-tight text-white sm:text-6xl drop-shadow-lg">Mercury Surge</h2>
-                    <p className="mt-6 text-lg leading-8 text-4xl text-gray-300 drop-shadow-lg">
+                    <p className="mt-6 leading-8 text-4xl text-gray-300 drop-shadow-lg">
                         Conectando talentos a oportunidades: o seu próximo passo na carreira começa aqui!
                     </p>
                 </div>
