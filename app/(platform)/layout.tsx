@@ -13,10 +13,11 @@ export default async function RootLayout({
 }>) {
   const isLogged = await isLoggedIn();
   return (
-    <html lang="en">
+    <html lang="pt-br">
       <body className={inter.className}>
         <Header />
-        {children}
+        <div className="flex flex-col min-h-screen flex-grow">{children}</div>
+
         <Footer />
       </body>
     </html>
