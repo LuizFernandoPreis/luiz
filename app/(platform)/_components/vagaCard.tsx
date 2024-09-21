@@ -1,9 +1,9 @@
-'use client'
+"use client";
 import { Building, Pin, Hammer, ChartBar, Scroll } from "lucide-react";
 import Image from "next/image";
 
 type vagaType = {
-  id: number
+  id: number;
   titulo: string;
   empresa: string;
   local: string;
@@ -12,15 +12,19 @@ type vagaType = {
   contratacao: string;
 };
 
-export default function VagaCard({vaga}: {vaga: vagaType}) {
-    const handleClick: React.MouseEventHandler<HTMLParagraphElement> = (
-        event
-      ) => {
-        alert(event.currentTarget.id);
-      };
+export default function VagaCard({ vaga }: { vaga: vagaType }) {
+  const handleClick: React.MouseEventHandler<HTMLParagraphElement> = (
+    event
+  ) => {
+    alert(event.currentTarget.id);
+  };
   return (
     <div className="flex-1">
-      <div className="bg-white shadow-md p-4 rounded mb-4 w-full flex w-dvw-50 hover:bg-alternate" onClick={handleClick} id={String(vaga.id)}>
+      <div
+        className="bg-white shadow-md p-4 rounded mb-4 w-full flex w-dvw-50 hover:bg-alternate"
+        onClick={handleClick}
+        id={String(vaga.id)}
+      >
         <Image
           className="mr-4"
           src="/icons/ifsc.png"

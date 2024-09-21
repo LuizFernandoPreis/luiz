@@ -26,7 +26,7 @@ export default function Feed() {
   ];
 
   return (
-    <div className="mx-auto flex flex-col">
+    <div className="mx-auto flex flex-col mb-24">
       <div className="flex flex-row ml-4">
         <h1>
           <strong>Início</strong> / Vagas disponíveis
@@ -38,7 +38,7 @@ export default function Feed() {
           <h2 className="text-2xl font-bold mb-4">Vagas</h2>
           <div className="bg-white shadow-md p-4 rounded mb-4 w-full flex flex-col w-dvw-50">
             {vagas.map((vaga, i) => (
-              <VagaCard key={i} vaga={vaga}/>
+              <VagaCard key={i} vaga={vaga} />
             ))}
           </div>
         </div>

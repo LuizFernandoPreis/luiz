@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Header } from "./_components/header";
 import { isLoggedIn } from "@/lib/auth/session-user";
+import { Footer } from "./_components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,13 +11,14 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const isLogged = await isLoggedIn()
+  const isLogged = await isLoggedIn();
   return (
     <html lang="en">
       <body className={inter.className}>
-         <Header />
+        <Header />
         {children}
-        </body>
+        <Footer />
+      </body>
     </html>
   );
 }

@@ -27,4 +27,4 @@ export default withAuth(
   }
 );
 
-export const config = { matcher: ["/middle/:path*"] };
+export const config = { matcher: ["/perfil/:path*"] };
