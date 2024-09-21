@@ -1,22 +1,22 @@
-'use client'
+"use client";
 
-import { dashboardRoute } from '@/lib/routes'
-import { cn } from '@/lib/utlis'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { EyeIcon, EyeOffIcon, InfoIcon } from 'lucide-react'
-import { signIn } from 'next-auth/react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { dashboardRoute } from "@/lib/routes";
+import { cn } from "@/lib/utlis";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { EyeIcon, EyeOffIcon, InfoIcon } from "lucide-react";
+import { signIn } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-const ID_CREDENTIALS_PROVIDER: string = 'auth-email-password';
+const ID_CREDENTIALS_PROVIDER: string = "auth-email-password";
 export const LoginForm = () => {
-  const router = useRouter()
+  const router = useRouter();
 
-  const [warn, setWarn] = useState<string>()
-  const [showPassword, setShowPassword] = useState(false)
+  const [warn, setWarn] = useState<string>();
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     handleSubmit,
@@ -24,27 +24,27 @@ export const LoginForm = () => {
     formState: { errors, isSubmitting: loading },
   } = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
-  })
+  });
 
   const onSubmit = async (data: z.infer<typeof Schema>) => {
-    setWarn(undefined)
+    setWarn(undefined);
 
-    const validatedFields = Schema.safeParse(data)
+    const validatedFields = Schema.safeParse(data);
 
     if (validatedFields.success) {
-      const { email, password } = validatedFields.data
+      const { email, password } = validatedFields.data;
 
       const res = await signIn(ID_CREDENTIALS_PROVIDER, {
         email,
         password,
         redirect: false,
-      })
+      });
 
       window.location.reload();
-      if (res?.ok) router.push(dashboardRoute)
-      else setWarn('E-mail ou senha incorretos.')
-    } else setWarn('Preencha os campos corretamente.')
-  }
+      if (res?.ok) router.push(dashboardRoute);
+      else setWarn("E-mail ou senha incorretos.");
+    } else setWarn("Preencha os campos corretamente.");
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4">
@@ -60,10 +60,10 @@ export const LoginForm = () => {
           E-mail
         </label>
         <input
-          {...register('email')}
+          {...register("email")}
           id="email"
           type="email"
-          className="rounded bg-alternate p-2"
+          className="rounded bg-alternate/20 p-2"
           maxLength={50}
           disabled={loading}
         />
@@ -83,10 +83,10 @@ export const LoginForm = () => {
         </div>
         <div className="relative">
           <input
-            {...register('password')}
+            {...register("password")}
             id="password"
-            type={showPassword ? 'text' : 'password'}
-            className="w-full rounded bg-alternate p-2 pe-10"
+            type={showPassword ? "text" : "password"}
+            className="w-full rounded bg-alternate/20 p-2 pe-10"
             maxLength={100}
             disabled={loading}
           />
@@ -105,31 +105,33 @@ export const LoginForm = () => {
       <button
         type="submit"
         className={cn(
-          'rounded-md px-4 py-2 font-bold uppercase duration-300',
-          loading ? 'bg-alternate' : 'bg-primary text-alternate',
+          "rounded-md px-4 py-2 font-bold uppercase duration-300",
+          loading ? "bg-alternate" : "bg-primary text-alternate"
         )}
         disabled={loading}
       >
-        {loading ? 'Carregando...' : 'Entrar'}
+        {loading ? "Carregando..." : "Entrar"}
       </button>
-      <Link href="/auth/register" className="duration-300 hover:translate-x-1">Cadastre-se &rarr;</Link>
+      <Link href="/auth/register" className="duration-300 hover:translate-x-1">
+        Cadastre-se &rarr;
+      </Link>
     </form>
-  )
-}
+  );
+};
 
 const Schema = z.object({
   email: z
     .string({
-      required_error: 'O e-mail é obrigatório',
+      required_error: "O e-mail é obrigatório",
     })
     .email({
-      message: 'O e-mail é inválido',
+      message: "O e-mail é inválido",
     }),
   password: z
     .string({
-      required_error: 'A senha é obrigatória',
+      required_error: "A senha é obrigatória",
     })
     .min(3, {
-      message: 'A senha deve ter no mínimo 3 caracteres',
+      message: "A senha deve ter no mínimo 3 caracteres",
     }),
-})
+});
