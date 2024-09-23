@@ -36,7 +36,7 @@ export default function VagaCard({ vaga }: { vaga: vagaType }) {
         id={String(vaga.id)}
       >
         <Image
-          className="mr-4"
+          className="mr-4 max-h-100"
           src="/icons/ifsc.png"
           alt="Logo"
           width={100}
