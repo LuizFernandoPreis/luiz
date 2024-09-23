@@ -25,9 +25,9 @@ export default function ProfileCurso() {
       <h1 className="text-2xl text-start font-semibold mb-4">Cursos</h1>
       <div className="bg-mercury w-[79.5%] flex rounded p-8 justify-center">
         <div className="relative flex flex-wrap gap-4 justify-center">
-          {loading ? <Spinner /> :listaCurso.map((src) => {
+          {loading ? <Spinner /> :listaCurso.map((src, i) => {
             return (
-              <div>
+              <div key={i}>
                 <CursoCard
                   src={src.image}
                   hintText={src.title}
