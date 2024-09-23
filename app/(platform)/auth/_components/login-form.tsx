@@ -40,7 +40,6 @@ export const LoginForm = () => {
         redirect: false,
       });
 
-      window.location.reload();
       if (res?.ok) router.push(dashboardRoute);
       else setWarn("E-mail ou senha incorretos.");
     } else setWarn("Preencha os campos corretamente.");
