@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { Header } from "./_components/header";
 import { isLoggedIn } from "@/lib/auth/session-user";
 import { Footer } from "./_components/footer";
+import { AppWrapper } from "./contexts/ctxHome";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,8 +12,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
   const isLogged = await isLoggedIn();
   return (
+    <AppWrapper>
     <html lang="pt-br">
       <body className={inter.className}>
         <Header />
@@ -21,5 +24,6 @@ export default async function RootLayout({
         <Footer />
       </body>
     </html>
+    </AppWrapper>
   );
 }

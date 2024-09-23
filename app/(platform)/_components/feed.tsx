@@ -1,11 +1,13 @@
-'use client'
+'use client';
 import { useEffect, useState } from "react";
 import TagSearch from "./tagSearch";
 import VagaCard from "./vagaCard";
 import Spinner from "./spinner";
+import { useApp } from "../contexts/ctxHome";
 
 export default function Feed() {
   const [loading, setLoading] = useState(true);
+  const { searchParam, setSearchParam } = useApp();
 
   const vagas = [
     {
@@ -27,6 +29,11 @@ export default function Feed() {
       contratacao: "CLT",
     },
   ];
+
+  // Filtra as vagas baseadas no título e searchParam
+  const filteredVagas = vagas.filter((vaga) =>
+    vaga.titulo.toLowerCase().includes(searchParam.toLowerCase())
+  );
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -51,8 +58,8 @@ export default function Feed() {
             {loading ? (
               <Spinner />
             ) : (
-              vagas.map((vaga, i) => (
-                <VagaCard key={i} vaga={vaga} />
+              filteredVagas.map((vaga) => (
+                <VagaCard key={vaga.id} vaga={vaga} />
               ))
             )}
           </div>

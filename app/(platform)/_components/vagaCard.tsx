@@ -31,12 +31,12 @@ export default function VagaCard({ vaga }: { vaga: vagaType }) {
   return (
     <div className="flex-1">
       <div
-        className="bg-white shadow-md p-4 rounded mb-4 w-full flex w-dvw-50 hover:bg-alternate"
+        className="bg-white shadow-md p-4 rounded mb-4 w-full flex flex-col md:flex-row w-dvw-50 hover:bg-alternate"
         onClick={handleClick}
         id={String(vaga.id)}
       >
         <Image
-          className="mr-4 max-h-100"
+          className="mr-4 max-h-[100px] "
           src="/icons/ifsc.png"
           alt="Logo"
           width={100}
