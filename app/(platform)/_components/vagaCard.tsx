@@ -1,4 +1,8 @@
 "use client";
+import { useSession } from "next-auth/react";
+import { authConfig } from "@/lib/auth/auth-config";
+import { isLoggedIn } from "@/lib/auth/session-user";
+import { useRouter } from 'next/navigation';
 import { Building, Pin, Hammer, ChartBar, Scroll } from "lucide-react";
 import Image from "next/image";
 
@@ -13,11 +17,17 @@ type vagaType = {
 };
 
 export default function VagaCard({ vaga }: { vaga: vagaType }) {
-  const handleClick: React.MouseEventHandler<HTMLParagraphElement> = (
-    event
-  ) => {
-    alert(event.currentTarget.id);
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  const handleClick: React.MouseEventHandler<HTMLDivElement> = async (event) => {
+    if (session) {
+      router.push(`/vaga/${vaga.id}`);
+    } else {
+      router.push('/auth/login')
+    }
   };
+  
   return (
     <div className="flex-1">
       <div
@@ -34,24 +44,24 @@ export default function VagaCard({ vaga }: { vaga: vagaType }) {
         />
         <div className="flex flex-col justify-between max-w-full">
           <h3 className="font-semibold truncate">{vaga.titulo}</h3>
-          <div className="flex flex-wrap space-x-4 text-gray-700">
-            <p className="flex pt-1">
+          <div className="flex flex-wrap gap-4 text-gray-700">
+            <p className="flex">
               {" "}
               <Building /> Empresa: {vaga.empresa}
             </p>
-            <p className="flex pt-1">
+            <p className="flex">
               {" "}
               <Pin /> Local: {vaga.local}
             </p>
-            <p className="flex pt-1">
+            <p className="flex">
               {" "}
               <Hammer /> Modalidade: {vaga.modalidade}
             </p>
-            <p className="flex pt-1">
+            <p className="flex">
               {" "}
               <ChartBar /> Senioridade: {vaga.senioridade}
             </p>
-            <p className="flex pt-1">
+            <p className="flex">
               {" "}
               <Scroll /> Contratação: {vaga.contratacao}
             </p>

@@ -48,13 +48,13 @@ export default function TagSearch() {
       <h2 className="text-2xl font-bold mb-4">Tags de Busca</h2>
       <div className="bg-white shadow-md p-4 rounded">
         <h3 className="font-semibold">Tipo de Contrato</h3>
-        <div className="flex flex-row space-x-4">{renderTags(contratoTag)}</div>
+        <div className="flex flex-row gap-4">{renderTags(contratoTag)}</div>
         <h3 className="font-semibold mt-8">Modalidade</h3>
-        <div className="flex flex-wrap space-x-4">
+        <div className="flex flex-wrap gap-4">
           {renderTags(modalidateTag)}
         </div>
         <h3 className="font-semibold mt-8">Senioridade</h3>
-        <div className="flex flex-wrap space-x-4">
+        <div className="flex flex-wrap gap-4">
           {renderTags(SenioridadeTag)}
         </div>
       </div>

@@ -16,7 +16,7 @@ export default async function RootLayout({
     <html lang="pt-br">
       <body className={inter.className}>
         <Header />
-        <div className="flex flex-col min-h-screen flex-grow">{children}</div>
+        <div className="flex flex-col min-h-screen">{children}</div>
 
         <Footer />
       </body>
