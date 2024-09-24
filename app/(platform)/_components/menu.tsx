@@ -55,7 +55,7 @@ export const Menu = ({ children: items }: { children: React.ReactNode }) => {
         <div className="flex w-full justify-between">
           <Link href="/" onClick={() => setIsMenuOpen(false)}>
             <Image
-              src="/icons/dark-gray.png"
+              src="/icons/logosemfundo1.png"
               alt="Logo"
               width={80} 
               height={0} 

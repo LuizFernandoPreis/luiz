@@ -50,7 +50,7 @@ export default function Feed() {
           <strong>Início</strong> / Vagas disponíveis
         </h1>
       </div>
-      <div className="flex flex-row max-w-6xl mx-auto p-4">
+      <div className="flex flex-col md:flex-row max-w-6xl mx-auto p-4">
         <TagSearch />
         <div className="flex-1 md:ml-16">
           <h2 className="text-2xl font-bold mb-4">Vagas</h2>
