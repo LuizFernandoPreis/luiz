@@ -15,8 +15,8 @@ export const Menu = ({ children: items }: { children: React.ReactNode }) => {
         <Image 
           src="/icons/logosemfundo1.png"
           alt="Logo"
-          width={300} // Aumentei a largura da logo
-          height={0} // Manter a altura como 0 para manter a proporção
+          width={300} 
+          height={0}
         />
       </Link>
 
@@ -40,16 +40,16 @@ export const Menu = ({ children: items }: { children: React.ReactNode }) => {
 
       <div
         className={cn(
-          'fixed inset-0 bg-black/50 lg:sr-only',
-          !isMenuOpen && 'sr-only',
+          'fixed inset-0 bg-black/50 transition-opacity duration-300 ease-in-out lg:sr-only',
+          !isMenuOpen && 'opacity-0 pointer-events-none',
         )}
         onClick={() => setIsMenuOpen(false)}
       />
 
       <div
         className={cn(
-          'fixed right-px top-0 flex h-full w-full max-w-80 flex-col gap-y-8 bg-white p-4 shadow-lg lg:sr-only',
-          !isMenuOpen && 'sr-only',
+          'fixed right-px top-0 flex h-full w-full max-w-80 flex-col gap-y-8 bg-white p-4 shadow-lg transform transition-transform duration-300 ease-in-out lg:sr-only',
+          isMenuOpen ? 'translate-x-0' : 'translate-x-full', 
         )}
       >
         <div className="flex w-full justify-between">
@@ -57,7 +57,7 @@ export const Menu = ({ children: items }: { children: React.ReactNode }) => {
             <Image
               src="/icons/logosemfundo1.png"
               alt="Logo"
-              width={80} 
+              width={160} 
               height={0} 
             />
           </Link>
