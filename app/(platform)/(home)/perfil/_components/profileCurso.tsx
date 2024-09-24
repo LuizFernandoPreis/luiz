@@ -21,7 +21,7 @@ export default function ProfileCurso() {
     return () => clearTimeout(timer);
   }, []);
   return (
-    <div className="w-full h-max flex items-center justify-center mt-4 mx-auto flex-col">
+    <div className="w-full h-max flex items-center justify-center mt-4 mb-8 md:mb-0 mx-auto flex-col">
       <h1 className="text-2xl text-start font-semibold mb-4">Cursos</h1>
       <div className="bg-mercury w-[79.5%] flex rounded p-8 justify-center">
         <div className="relative flex flex-wrap gap-4 justify-center">
