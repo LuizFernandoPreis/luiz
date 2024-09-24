@@ -15,7 +15,6 @@ export default function SearchBar() {
             setisSearching(true);
             const response = await fetch(`https://tcc-ifsc.vercel.app/api/cursos?search=${searchCursoParam}`)
             const res = await response.json();
-            console.log(res)
             setcursosApp(res);
             setisSearching(false);
         }
@@ -23,7 +22,7 @@ export default function SearchBar() {
 
     return (
         <div className="flex items-center justify-center">
-            <div className="relative w-full max-w-md">
+            <div className="relative w-[80%] md:w-full max-w-md">
                 <input
                     onChange={onChange}
                     onKeyDown={onKeyDown} 
