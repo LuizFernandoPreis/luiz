@@ -22,7 +22,7 @@ export default function SearchBar() {
 
     return (
         <div className="flex items-center justify-center">
-            <div className="relative w-[80%] md:w-full max-w-md">
+            <div className="relative w-[80%] md:w-full mb-2 md:mb-0 max-w-md">
                 <input
                     onChange={onChange}
                     onKeyDown={onKeyDown} 
