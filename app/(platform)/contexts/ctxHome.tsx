@@ -22,7 +22,7 @@ interface AppWrapperProps {
 
 export function AppWrapper({ children }: AppWrapperProps) {
   const [cursosApp, setcursosApp] = useState<Curso[]>([]); 
-  const [isSearching, setisSearching] = useState(false);
+  const [isSearching, setisSearching] = useState(true);
   const [searchParam, setSearchParam] = useState("");
   const [searchCursoParam, setSearchCursoPara] = useState("");
 

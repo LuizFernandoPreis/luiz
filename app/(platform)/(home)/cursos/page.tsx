@@ -9,7 +9,7 @@ import { useApp } from "../../contexts/ctxHome";
 export default function CursoPage() {
   const [loading, setLoading] = useState(true);
   const { cursosApp,isSearching,
-    setcursosApp, } = useApp();
+    setcursosApp, setisSearching} = useApp();
   useEffect(() => {
     const fetchCurso = async () => {
       try {
@@ -20,7 +20,7 @@ export default function CursoPage() {
       } catch (error) {
         console.error("Failed to fetch courses", error);
       } finally {
-        setLoading(false);
+        setisSearching(false);
       }
     };
 
