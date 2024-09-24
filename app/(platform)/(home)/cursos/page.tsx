@@ -1,64 +1,58 @@
-'use client'
+"use client";
 import { useEffect, useState } from "react";
 import Spinner from "../../_components/spinner";
-import VagaCard from "../../_components/vagaCard";
-import CursoTagSearch from "./_components/cursoTagSeach";
+import Curso from "./types/cursoType";
+import CursoCard from "./_components/cursoCard";
+import SearchBar from "./_components/searchBar";
+import { useApp } from "../../contexts/ctxHome";
 
-export default function CursoPage(){
-    const [loading, setLoading] = useState(true);
-    
-    useEffect(() => {
-        const timer = setTimeout(() => {
-          setLoading(false);
-        }, 500); 
-    
-        return () => clearTimeout(timer);
-      }, []);
-      
-      const vagas = [
-        {
-          id: 0,
-          titulo: "Programador JAVA",
-          empresa: "IFSC - Tubarão",
-          local: "Tubarão",
-          modalidade: "Presencial",
-          senioridade: "Pleno",
-          contratacao: "CLT",
-        },
-        {
-          id: 1,
-          titulo: "Programador PHP",
-          empresa: "IFSC - Tubarão",
-          local: "Tubarão",
-          modalidade: "Híbrido",
-          senioridade: "Junior",
-          contratacao: "CLT",
-        },
-      ];
-    
-      const filteredVagas = vagas;  
-    
-    return(
-        <div className="mx-auto flex flex-col mt-24">
-      <div className="flex flex-row ml-4">
+export default function CursoPage() {
+  const [loading, setLoading] = useState(true);
+  const { cursosApp,isSearching,
+    setcursosApp, } = useApp();
+  useEffect(() => {
+    const fetchCurso = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/cursos");
+        const res = await response.json();
+        setcursosApp(res);
+        console.log(cursosApp);
+      } catch (error) {
+        console.error("Failed to fetch courses", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCurso();
+  }, []);
+
+  return (
+    <div className="mx-auto flex flex-col mt-8">
+      <SearchBar />
+      <div className="flex flex-row ml-[11%]">
         <h1>
           <strong>Cursos</strong> / Cursos disponíveis
         </h1>
       </div>
-      <div className="flex flex-col md:flex-row max-w-6xl mx-auto p-4">
-        <div className="flex flex-col">
+
+      {/* Container principal */}
+      <div className="flex flex-col md:flex-row w-4/5 mx-auto p-4">
+        <div className="flex flex-col w-full">
           <h2 className="text-2xl font-bold mb-4">Cursos</h2>
-          <div className="bg-white shadow-md p-4 rounded mb-4 w-full flex flex-col">
-            {loading ? (
+
+          {/* Div dos cursos */}
+          <div className="bg-white shadow-md p-4 rounded mb-4 w-full flex flex-wrap gap-4">
+            {isSearching ? (
               <Spinner />
             ) : (
-              filteredVagas.map((vaga) => (
-                <VagaCard key={vaga.id} vaga={vaga} />
+              cursosApp.map((curso: Curso, index) => (
+                <CursoCard key={index} curso={curso} />
               ))
             )}
           </div>
         </div>
       </div>
     </div>
-    )
+  );
 }

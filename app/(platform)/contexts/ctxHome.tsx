@@ -1,49 +1,55 @@
-'use client'
-import { createContext, useState, useContext, ReactNode } from 'react';
+"use client";
+import { createContext, useState, useContext, ReactNode } from "react";
+import Curso from "../(home)/cursos/types/cursoType";
 
-// Define o tipo para o valor do contexto
+// Define o tipo correto para o valor do contexto
 interface AppContextType {
-    isOnDemandOpen: boolean;
-    setIsOnDemandOpen: (value: boolean) => void;
-    isSelectOpen: boolean;
-    setIsSelectOpen: (value: boolean) => void;
-    searchParam: string;
-    setSearchParam: (value: string) => void;
+  cursosApp: Curso[]; 
+  setcursosApp: (value: any[]) => void;
+  isSearching: boolean;
+  setisSearching: (value: boolean) => void;
+  searchParam: string;
+  setSearchParam: (value: string) => void;
+  searchCursoParam: string;
+  setSearchCursoPara: (value: string) => void;
 }
 
-// Cria o contexto com um valor padrão como `null`
 export const AppContext = createContext<AppContextType | null>(null);
 
 interface AppWrapperProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 export function AppWrapper({ children }: AppWrapperProps) {
-    const [isOnDemandOpen, setIsOnDemandOpen] = useState(true);
-    const [isSelectOpen, setIsSelectOpen] = useState(false);
-    const [searchParam, setSearchParam] = useState("");
-    return (
-        <AppContext.Provider
-            value={{
-                isOnDemandOpen,
-                setIsOnDemandOpen,
-                isSelectOpen,
-                setIsSelectOpen,
-                searchParam,
-                setSearchParam,
-            }}
-        >
-            {children}
-        </AppContext.Provider>
-    );
+  const [cursosApp, setcursosApp] = useState<Curso[]>([]); 
+  const [isSearching, setisSearching] = useState(false);
+  const [searchParam, setSearchParam] = useState("");
+  const [searchCursoParam, setSearchCursoPara] = useState("");
+
+  return (
+    <AppContext.Provider
+      value={{
+        cursosApp,
+        setcursosApp,
+        isSearching,
+        setisSearching,
+        searchParam,
+        setSearchParam,
+        searchCursoParam,
+        setSearchCursoPara,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
 }
 
 export function useApp() {
-    const context = useContext(AppContext);
+  const context = useContext(AppContext);
 
-    if (!context) {
-        throw new Error('useApp must be used within an AppWrapper');
-    }
+  if (!context) {
+    throw new Error("useApp must be used within an AppWrapper");
+  }
 
-    return context;
+  return context;
 }
