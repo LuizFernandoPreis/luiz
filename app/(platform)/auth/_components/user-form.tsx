@@ -80,7 +80,7 @@ export const UserForm = ({ user }: { user?: Usuario }) => {
     >
       <div className="sticky top-20 z-10 flex items-center justify-between gap-x-4 rounded bg-white p-2 shadow">
         <div className="text-xl font-bold uppercase">
-          <Link href={`${dashboardRoute}/usuarios`}>
+          <Link href={`/`}>
             <ArrowLeftCircleIcon className="me-4 inline size-6" />
           </Link>
           {user ? 'Editar' : 'Criar'} Usuário
