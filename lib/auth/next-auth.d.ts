@@ -6,6 +6,7 @@ declare module 'next-auth' {
     user?: DefaultSession['user'] & {
       id: string
       papel?: Papel
+      imagePerfil?: string
     }
   }
 }

@@ -9,7 +9,6 @@ export const currentUser = async () => {
 
 export const isLoggedIn = async () => {
   const user = await currentUser()
-
   return !!user || false
 }
 
@@ -17,7 +16,7 @@ export const isAdmin = async () => {
   const user = await currentUser()
 
   return (
-    user?.papel === 'administrador' || user?.papel === 'desenvolvedor' || false
+    user?.papel === 'administrador' ? true : false
   )
 }
 

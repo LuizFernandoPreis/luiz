@@ -15,11 +15,10 @@ export async function GET(request: NextRequest) {
     
     const data = await response.json();
 
-    // Retorna a resposta com cabeçalhos CORS
     const res = NextResponse.json(data.results);
-    res.headers.set('Access-Control-Allow-Origin', 'https://tcc-ifsc.vercel.app'); // Substitua pelo domínio que você deseja permitir
-    res.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS'); // Métodos permitidos
-    res.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Cabeçalhos permitidos
+    res.headers.set('Access-Control-Allow-Origin', 'https://tcc-ifsc.vercel.app');
+    res.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS'); 
+    res.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
     return res;
   } catch (error) {

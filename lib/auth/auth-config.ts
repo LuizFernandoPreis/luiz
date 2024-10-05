@@ -32,7 +32,8 @@ export const authConfig: NextAuthOptions = {
           id: user.id,
           name: user.nome,
           email: user.email,
-        } as AdapterUser
+          papel: user.papel
+        } 
       },
     }),
   ],
@@ -50,6 +51,7 @@ export const authConfig: NextAuthOptions = {
         if (existingUser) {
           token.name = existingUser.nome
           token.email = existingUser.email
+          token.papel = existingUser.papel
         } else delete token.sub
       }
       return token
@@ -60,6 +62,7 @@ export const authConfig: NextAuthOptions = {
           id: token.sub,
           name: token.name,
           email: token.email,
+          papel: token.papel,
         }
       return session
     },
