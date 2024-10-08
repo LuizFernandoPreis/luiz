@@ -15,73 +15,49 @@ datasource db {
 }
 
 model Usuario {
-  id    String @id @default(uuid())
-  nome  String
-  email String @unique
-  senha String @db.Text
-  papel String? 
-  cidade String?
-  curso String?
-  sit String?
-  sobre String?
+  id              String  @id @default(uuid())
+  nome            String
+  email           String  @unique
+  senha           String  @db.Text
+  papel           String?
+  cidade          String?
+  curso           String?
+  sit             String?
+  sobre           String?
   userPerfilImage String?
-  userCapaImage String?
-  // Monitor the user's access
+  userCapaImage   String?
+
   criadoEm     DateTime  @default(now()) @map("criado_em")
   atualizadoEm DateTime? @updatedAt @map("atualizado_em")
   ultimoAcesso DateTime? @map("ultimo_acesso")
+
+  Empresa Empresa[] @relation("UserId")
 
   @@index([id])
   @@index([email])
 }
 
+model Empresa {
+  id        Int    @id @default(autoincrement())
+  nome      String
+  cnpj      String
+  descricao String
 
-model UF {
-  uf      String @id @unique
-  aliqInt Float
-  aliqSC  Float
-  freCap  Float
-  freInt  Float
+  usuario   Usuario @relation("UserId", fields: [usuarioId], references: [id])
+  usuarioId String
 
-  capital   Cidade? @relation("UF", fields: [capitalId], references: [id])
-  capitalId Int?    @unique
-
-  cidades Cidade[] @relation("UF_Cities")
+  Vaga Vaga[] @relation("EmpId")
 }
 
-model Cidade {
-  id   Int    @id @default(autoincrement())
-  nome String
+model Vaga {
+  id          Int    @id @default(autoincrement())
+  titulo      String
+  local       String
+  modalidade  String
+  senioridade String
+  contatacao  String
+  descricao   String
 
-  ufs UF     @relation("UF_Cities", fields: [uf], references: [uf])
-  uf  String
-
-  cidadesUF  UF[]       @relation("UF")
-  cidadesEnd Endereco[] @relation("cidadesEnd")
-}
-
-model Endereco {
-  id         Int     @id @default(autoincrement())
-  cep        String?
-  logradouro String?
-  rua        String?
-  bairro     String?
-
-  cidade   Cidade? @relation("cidadesEnd", fields: [cidadeId], references: [id])
-  cidadeId Int?
-
-  Cliente   Cliente @relation("ClienteEnd", fields: [clienteId], references: [id])
-  clienteId Int
-}
-
-model Cliente {
-  id       Int     @id @default(autoincrement())
-  nome     String
-  telefone String?
-  celular  String?
-  cpf      String  @unique
-  rg       String? @unique
-  email    String?
-
-  endereco Endereco[] @relation("ClienteEnd")
+  Empresa   Empresa @relation("EmpId", fields: [empresaId], references: [id])
+  empresaId Int
 }

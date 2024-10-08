@@ -18,12 +18,10 @@ import { useState } from 'react'
 import { FieldErrors, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-// 👉 This type is a workaround for zodResolver not being able to infer the correct type
 type _FieldErrors = FieldErrors<
   z.infer<typeof UsuarioSchema> & z.infer<typeof UsuarioUpdateSchema>
 >
 
-// ⚠️ This instance Usuario not the same as User from next-auth
 export const UserForm = ({ user }: { user?: Usuario }) => {
   const router = useRouter()
 
