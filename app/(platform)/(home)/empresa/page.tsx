@@ -49,7 +49,7 @@ export default async function Empresa() {
               Como Funciona?
             </h1>
             <div className="flex flex-col gap-4 mt-8 z-20">
-              <div className="shadow-md ml-[600px] rounded-lg p-4 w-fit bg-white z-20">
+              <div className="shadow-md flex justify-center rounded-lg p-4 w-fit bg-white z-20">
                 <h1 className="font-bold">1° Passo:</h1>
                 <p>Cadastrar a oportunidade no site</p>
               </div>
