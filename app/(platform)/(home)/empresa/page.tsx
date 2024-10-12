@@ -55,7 +55,6 @@ export default async function Empresa() {
                   <p>Cadastrar a oportunidade no site</p>
                 </div>
               </div>
-
               <div className="flex justify-center z-20">
                 <div className="shadow-md rounded-lg p-4 w-fit bg-white">
                   <h1 className="font-bold">2° Passo:</h1>
