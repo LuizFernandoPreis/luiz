@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { LogOut } from "lucide-react";
+import { signOut } from "next-auth/react";
 
 interface User {
   id: string;
@@ -46,7 +48,7 @@ export default function UserUpdateModal({
     try {
       await axios.put(`/api/usuario/?id=${user.id}`, data);
       alert("Usuário atualizado com sucesso!");
-      console.log(data)
+      console.log(data);
       onClose();
     } catch (error) {
       console.error("Erro ao atualizar usuário:", error);
@@ -60,7 +62,12 @@ export default function UserUpdateModal({
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-white p-6 rounded-lg md:w-2/3 md:h-2/3 overflow-auto">
-        <h2 className="text-2xl mb-4">Atualizar Informações do Usuário</h2>
+        <div className="flex justify-between">
+          <h2 className="text-2xl mb-4">Atualizar Informações do Usuário</h2>
+          <span className="flex align-middle justify-center h-fit w-fit hover:bg-mercury p-2 rounded-lg cursor-pointer" onClick={()=>{signOut()}}>
+            <LogOut />
+          </span>
+        </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label htmlFor="nome" className="block">
@@ -122,8 +129,6 @@ export default function UserUpdateModal({
               className="border p-2 w-full"
             />
           </div>
-
-          {/* Campo de seleção corrigido */}
           <div className="mb-4">
             <label htmlFor="sit" className="block">
               Situação
@@ -183,8 +188,8 @@ export default function UserUpdateModal({
             <button
               type="button"
               onClick={() => {
-                reset(); 
-                onClose(); 
+                reset();
+                onClose();
               }}
               className="ml-2 bg-gray-500 text-white p-2 rounded"
             >

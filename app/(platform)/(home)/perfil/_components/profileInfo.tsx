@@ -1,12 +1,12 @@
-"use client"; // Marcando como um Client-Side component, pois ele terá interatividade
+"use client"; 
 import { Usuario } from "@prisma/client";
 import { Edit } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-import UserUpdateModal from "./userUpdateModal"; // O modal para atualizar o perfil
+import UserUpdateModal from "./userUpdateModal"; 
 
 export default function ProfileInfo({ user }: { user: Usuario }) {
-  const [isModalOpen, setIsModalOpen] = useState(false); // Controla o estado do modal
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   return (
     <div className="flex flex-col md:flex-row w-full gap-16 p-4 md:p-0 align-center justify-center">
@@ -29,7 +29,7 @@ export default function ProfileInfo({ user }: { user: Usuario }) {
           <h1 className="text-2xl text-start font-semibold">{user?.nome}</h1>
           <p className="text-md text-start">Cidade: {user.cidade}</p>
           <p className="text-md text-start">Curso: {user.curso}</p>
-          <p className="text-md text-start">Situação: {user.sit}</p>
+          <p className="text-md text-start">Situação: {user.sit == 'S' ? 'Aberto a oportunidades' : 'Não aberto a oportunidades'}</p>
         </div>
         <div className="bg-white shadow-md p-4 rounded md:w-2/3 h-full flex flex-col space-y-4 overflow-hidden">
           <div className="flex justify-between">
