@@ -61,7 +61,7 @@ export default function UserUpdateModal({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white p-6 rounded-lg md:w-2/3 md:h-2/3 overflow-auto">
+      <div className="bg-white p-6 rounded-lg h-[90%] w-[90%] md:w-2/3 md:h-2/3 overflow-auto">
         <div className="flex justify-between">
           <h2 className="text-2xl mb-4">Atualizar Informações do Usuário</h2>
           <span className="flex align-middle justify-center h-fit w-fit hover:bg-mercury p-2 rounded-lg cursor-pointer" onClick={()=>{signOut()}}>
