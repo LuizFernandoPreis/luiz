@@ -32,6 +32,7 @@ model Usuario {
   ultimoAcesso DateTime? @map("ultimo_acesso")
 
   Empresa Empresa[] @relation("UserId")
+  Favoritos Favoritos[] @relation("FavoritoId")
 
   @@index([id])
   @@index([email])
@@ -60,4 +61,22 @@ model Vaga {
 
   Empresa   Empresa @relation("EmpId", fields: [empresaId], references: [id])
   empresaId Int
+}
+
+model curso {
+  id Int @id @unique
+
+  Favorito Favoritos[] @relation("FavoritoCursoId")
+}
+
+model Favoritos {
+  id Int @id @default(autoincrement())
+
+  Curso curso @relation("FavoritoCursoId", fields: [cursoId], references: [id])
+  cursoId Int
+
+  Usuario Usuario @relation("FavoritoId", fields: [usuarioId], references: [id])
+  usuarioId String
+  
+  @@unique([usuarioId, cursoId])
 }

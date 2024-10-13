@@ -42,7 +42,7 @@ export default function CursoPage() {
           <h2 className="text-2xl font-bold mb-4">Cursos</h2>
 
           {/* Div dos cursos */}
-          <div className="bg-white shadow-md p-4 rounded mb-4 w-full flex flex-wrap gap-4">
+          <div className="bg-white shadow-md p-4 rounded mb-4 w-full flex flex-wrap gap-4 justify-center">
             {isSearching ? (
               <Spinner />
             ) : (

@@ -42,7 +42,8 @@ export default async function Empresa() {
           </div>
         </div>
       </div>
-      <div className="flex justify-center mt-8 bg-mercury p-8 mb-16">
+
+      <div className="flex justify-center mt-8 bg-mercury p-8 mb-16 relative">
         <div className="flex flex-col justify-center w-full">
           <div>
             <h1 className="font-bold text-3xl text-center mt-2 z-20">
@@ -68,7 +69,8 @@ export default async function Empresa() {
                 </div>
               </div>
             </div>
-            <div className="relative bottom-[85%] left-1/2 h-[90%] bg-black/50 w-0.5 z-10"></div>
+
+            <div className="absolute top-20 left-1/2 h-[75%] bg-black/50 w-0.5 z-10 transform -translate-x-1/2"></div>
           </div>
         </div>
       </div>
