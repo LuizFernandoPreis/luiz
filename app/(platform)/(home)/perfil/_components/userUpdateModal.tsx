@@ -1,8 +1,10 @@
+'use client'
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { LogOut } from "lucide-react";
 import { signOut } from "next-auth/react";
+import { cn } from "@/lib/utlis"; // Função para combinar classes CSS
 
 interface User {
   id: string;
@@ -48,7 +50,6 @@ export default function UserUpdateModal({
     try {
       await axios.put(`/api/usuario/?id=${user.id}`, data);
       alert("Usuário atualizado com sucesso!");
-      console.log(data);
       onClose();
     } catch (error) {
       console.error("Erro ao atualizar usuário:", error);
@@ -60,140 +61,142 @@ export default function UserUpdateModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white p-6 rounded-lg h-[90%] w-[90%] md:w-2/3 md:h-2/3 overflow-auto">
-        <div className="flex justify-between">
-          <h2 className="text-2xl mb-4">Atualizar Informações do Usuário</h2>
-          <span className="flex align-middle justify-center h-fit w-fit hover:bg-mercury p-2 rounded-lg cursor-pointer" onClick={()=>{signOut()}}>
-            <LogOut />
-          </span>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="w-[90%] md:w-2/3 lg:w-1/2 bg-white rounded-lg shadow-lg p-8 overflow-auto max-h-[90vh]">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-semibold">Atualizar Usuário</h2>
+          <button
+            onClick={() => signOut()}
+            className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"
+          >
+            <LogOut className="w-6 h-6 text-gray-600" />
+          </button>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mb-4">
-            <label htmlFor="nome" className="block">
+
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div>
+            <label htmlFor="nome" className="block text-sm font-medium mb-1">
               Nome
             </label>
             <input
               id="nome"
               {...register("nome", { required: "Nome é obrigatório" })}
-              className="border p-2 w-full"
+              className={cn(
+                "w-full p-2 rounded-md border bg-gray-50 focus:outline-none focus:ring-2",
+                errors.nome ? "border-red-500 ring-red-300" : "border-gray-300"
+              )}
             />
-            {errors.nome && (
-              <p className="text-red-500">{errors.nome.message}</p>
-            )}
+            {errors.nome && <p className="text-red-500 text-sm">{errors.nome.message}</p>}
           </div>
-
-          <div className="mb-4">
-            <label htmlFor="email" className="block">
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium mb-1">
               Email
             </label>
             <input
               id="email"
               {...register("email", { required: "Email é obrigatório" })}
-              className="border p-2 w-full"
+              className={cn(
+                "w-full p-2 rounded-md border bg-gray-50 focus:outline-none focus:ring-2",
+                errors.email ? "border-red-500 ring-red-300" : "border-gray-300"
+              )}
             />
-            {errors.email && (
-              <p className="text-red-500">{errors.email.message}</p>
-            )}
+            {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
           </div>
 
-          <div className="mb-4">
-            <label htmlFor="papel" className="block">
+          {/** Papel */}
+          <div>
+            <label htmlFor="papel" className="block text-sm font-medium mb-1">
               Papel
             </label>
             <input
               id="papel"
               {...register("papel")}
-              className="border p-2 w-full"
+              className="w-full p-2 rounded-md border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
           </div>
-
-          <div className="mb-4">
-            <label htmlFor="cidade" className="block">
+          <div>
+            <label htmlFor="cidade" className="block text-sm font-medium mb-1">
               Cidade
             </label>
             <input
               id="cidade"
               {...register("cidade")}
-              className="border p-2 w-full"
+              className="w-full p-2 rounded-md border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
           </div>
-
-          <div className="mb-4">
-            <label htmlFor="curso" className="block">
+          <div>
+            <label htmlFor="curso" className="block text-sm font-medium mb-1">
               Curso
             </label>
             <input
               id="curso"
               {...register("curso")}
-              className="border p-2 w-full"
+              className="w-full p-2 rounded-md border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
           </div>
-          <div className="mb-4">
-            <label htmlFor="sit" className="block">
+          <div>
+            <label htmlFor="sit" className="block text-sm font-medium mb-1">
               Situação
             </label>
             <select
               id="sit"
               {...register("sit")}
-              className="border p-2 w-full"
-              defaultValue={user.sit || "S"}
+              className="w-full p-2 rounded-md border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
             >
               <option value="S">Aberto a oportunidades</option>
               <option value="N">Não aberto a oportunidades</option>
             </select>
           </div>
 
-          <div className="mb-4">
-            <label htmlFor="sobre" className="block">
+          {/** Sobre */}
+          <div>
+            <label htmlFor="sobre" className="block text-sm font-medium mb-1">
               Sobre
             </label>
             <textarea
               id="sobre"
               {...register("sobre")}
-              className="border p-2 w-full"
+              className="w-full p-2 rounded-md border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
           </div>
-
-          <div className="mb-4">
-            <label htmlFor="userPerfilImage" className="block">
+          <div>
+            <label htmlFor="userPerfilImage" className="block text-sm font-medium mb-1">
               Imagem de Perfil
             </label>
             <input
               id="userPerfilImage"
               {...register("userPerfilImage")}
-              className="border p-2 w-full"
+              className="w-full p-2 rounded-md border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
           </div>
 
-          <div className="mb-4">
-            <label htmlFor="userCapaImage" className="block">
+          <div>
+            <label htmlFor="userCapaImage" className="block text-sm font-medium mb-1">
               Imagem de Capa
             </label>
             <input
               id="userCapaImage"
               {...register("userCapaImage")}
-              className="border p-2 w-full"
+              className="w-full p-2 rounded-md border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
           </div>
-
-          <div className="w-full flex justify-end">
-            <button
-              type="submit"
-              className="bg-blue-500 text-white p-2 rounded"
-              disabled={loading}
-            >
-              {loading ? "Atualizando..." : "Atualizar"}
-            </button>
+          <div className="flex justify-end space-x-4">
             <button
               type="button"
               onClick={() => {
                 reset();
                 onClose();
               }}
-              className="ml-2 bg-gray-500 text-white p-2 rounded"
+              className="px-4 py-2 rounded-md bg-gray-500 text-white hover:bg-gray-600 transition"
             >
               Cancelar
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition"
+              disabled={loading}
+            >
+              {loading ? "Atualizando..." : "Atualizar"}
             </button>
           </div>
         </form>
