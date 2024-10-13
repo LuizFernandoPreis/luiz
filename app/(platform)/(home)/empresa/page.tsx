@@ -51,7 +51,7 @@ export default async function Empresa() {
             </h1>
             <div className="flex flex-col gap-4 mt-8 z-20">
               <div className="flex justify-center">
-                <div className="flex justify-center shadow-md rounded-lg p-4 w-fit bg-white z-20">
+                <div className="shadow-md rounded-lg p-4 w-fit bg-white z-20">
                   <h1 className="font-bold">1° Passo:</h1>
                   <p>Cadastrar a oportunidade no site</p>
                 </div>
