@@ -1,12 +1,10 @@
 "use client";
-import { action } from "@/actions";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CursoCard from "../(home)/cursos/_components/cursoCard";
 import Curso from "../(home)/cursos/types/cursoType";
 import Spinner from "../_components/spinner";
-import { set } from "zod";
 
 export default function FavoritosPage() {
   const [loading, setLoading] = useState(true);
