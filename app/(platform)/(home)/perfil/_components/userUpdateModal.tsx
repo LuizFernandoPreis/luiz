@@ -103,8 +103,7 @@ export default function UserUpdateModal({
             {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
           </div>
 
-          {/** Papel */}
-          <div>
+          <div hidden>
             <label htmlFor="papel" className="block text-sm font-medium mb-1">
               Papel
             </label>
