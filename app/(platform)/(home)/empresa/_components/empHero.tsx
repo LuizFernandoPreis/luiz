@@ -19,7 +19,7 @@ export default function HeroSection() {
                         Cadastre sua empresa e oferte suas oportunidades conosco! 
                     </p>
                 </div>
-                <a href="" className="bg-white rounded-md p-4 absolute bottom-32 right-1/2 translate-x-1/2 hover:bg-mercury">Comece a contratar!</a>
+                <a href="/empresa/cadastro" className="bg-white rounded-md p-4 absolute bottom-32 right-1/2 translate-x-1/2 hover:bg-mercury">Comece a contratar!</a>
             </div>
         </div>
     );

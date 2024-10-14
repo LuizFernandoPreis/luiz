@@ -22,6 +22,13 @@ export const UsuarioSchema = z.object({
 
 })
 
+export const UpdTipoUserSchema = z.object({
+  id: z
+    .string({ required_error: 'O id é obrigatório' }),
+  papel: z
+    .string({ required_error: 'O papel é obrigatório' })
+})
+
 export const UsuarioUpdateSchema = UsuarioIdSchema.merge(
   UsuarioSchema.omit({
     senha: true,

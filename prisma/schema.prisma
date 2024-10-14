@@ -39,9 +39,8 @@ model Usuario {
 }
 
 model Empresa {
-  id        Int    @id @default(autoincrement())
   nome      String
-  cnpj      String
+  cnpj      String @id
   descricao String
 
   usuario   Usuario @relation("UserId", fields: [usuarioId], references: [id])
@@ -59,8 +58,8 @@ model Vaga {
   contatacao  String
   descricao   String
 
-  Empresa   Empresa @relation("EmpId", fields: [empresaId], references: [id])
-  empresaId Int
+  Empresa   Empresa @relation("EmpId", fields: [empresaId], references: [cnpj])
+  empresaId String
 }
 
 model curso {
