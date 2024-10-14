@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { withAuth } from "next-auth/middleware";
 import { authRoutePrefix, dashboardRoute } from "./lib/routes";
+import { signOut } from "next-auth/react";
 
 export default withAuth(
   async function middleware({ headers, nextUrl, nextauth: { token } }) {
@@ -10,6 +11,10 @@ export default withAuth(
     if (token?.sub) {
       if (pathname.startsWith(authRoutePrefix))
         return NextResponse.redirect(new URL(dashboardRoute, nextUrl));
+
+      if(pathname.startsWith('/sair')){
+        signOut();
+      }
     }
   },
   {

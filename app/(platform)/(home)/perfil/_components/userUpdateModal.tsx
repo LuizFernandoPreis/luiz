@@ -65,12 +65,6 @@ export default function UserUpdateModal({
       <div className="w-[90%] md:w-2/3 lg:w-1/2 bg-white rounded-lg shadow-lg p-8 overflow-auto max-h-[90vh]">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-semibold">Atualizar Usuário</h2>
-          <button
-            onClick={() => signOut()}
-            className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"
-          >
-            <LogOut className="w-6 h-6 text-gray-600" />
-          </button>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
