@@ -7,7 +7,6 @@ import UserUpdateModal from "./userUpdateModal";
 
 export default function ProfileInfo({ user }: { user: Usuario }) {
   const [isModalOpen, setIsModalOpen] = useState(false); 
-
   return (
     <div className="flex flex-col md:flex-row w-full gap-16 p-4 md:p-0 align-center justify-center">
       <div className="bg-mercury w-full h-60 md:h-60 md:w-1/4 p-2 rounded">

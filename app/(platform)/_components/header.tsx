@@ -45,7 +45,7 @@ export const Header = async () => {
           <div className="invisible absolute mt-2 w-60 rounded bg-mercury opacity-0 shadow duration-300 group-hover:visible group-hover:mt-6 group-hover:opacity-100 max-lg:hidden">
             <ul className="m-4 flex flex-col gap-y-4 text-start no-underline">
               <li className="hover:font-bold">
-                <Link href="/perfil">Meu Perfil</Link>
+                <Link href="/perfil">{isloged ? "Meu Perfil" : "Entrar"}</Link>
               </li>
 
               {session?.user?.papel == "J" ? (
@@ -55,9 +55,13 @@ export const Header = async () => {
               ) : (
                 ""
               )}
-              <li className="hover:font-bold">
-                <LogoutComp />
-              </li>
+              {isloged ? (
+                <li className="hover:font-bold">
+                  <LogoutComp />
+                </li>
+              ) : (
+                <></>
+              )}
             </ul>
           </div>
         </li>

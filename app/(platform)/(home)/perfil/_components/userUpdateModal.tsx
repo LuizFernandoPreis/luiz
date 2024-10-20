@@ -50,6 +50,7 @@ export default function UserUpdateModal({
     try {
       await axios.put(`/api/usuario/?id=${user.id}`, data);
       alert("Usuário atualizado com sucesso!");
+      window.location.reload();
       onClose();
     } catch (error) {
       console.error("Erro ao atualizar usuário:", error);
