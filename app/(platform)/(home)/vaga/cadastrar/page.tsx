@@ -1,9 +1,12 @@
 "use client";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function VagaForm() {
   const session = useSession();
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     titulo: "",
     local: "",
@@ -29,8 +32,9 @@ export default function VagaForm() {
       },
       body: JSON.stringify(formData),
     });
-
-    console.log(data);
+    
+    const vaga = await data.json();
+    router.push(`/vaga/${vaga.vaga.data.id}`);
   };    
 
   useEffect(() => {

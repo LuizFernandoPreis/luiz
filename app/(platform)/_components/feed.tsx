@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useEffect, useState } from "react";
 import TagSearch from "./tagSearch";
 import VagaCard from "./vagaCard";
@@ -10,8 +10,10 @@ export default function Feed() {
   const [loading, setLoading] = useState(true);
   const { searchParam, setSearchParam } = useApp();
   const [vagas, setVagas] = useState<Vaga[]>([]);
+  const [count, setCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 5;
 
-  
   const filteredVagas = vagas.filter((vaga) =>
     vaga.titulo.toLowerCase().includes(searchParam.toLowerCase())
   );
@@ -19,23 +21,27 @@ export default function Feed() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/vaga");
+        const response = await fetch(
+          `/api/vaga?page=${currentPage}&limit=${limit}`
+        );
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
+        console.log(data.data);
         setVagas(data.data.vagas);
-        console.log(data.data.vagas);
+        setCount(data.totalCount);
       } catch (error) {
         console.error("Fetch error: ", error);
       } finally {
         setLoading(false);
       }
     };
-  
+
     fetchData();
-  }, []);
-  
+  }, [currentPage]);
+
+  const totalPages = Math.ceil(count / limit);
 
   return (
     <div className="mx-auto flex flex-col mb-24">
@@ -56,6 +62,32 @@ export default function Feed() {
                 <VagaCard key={vaga.id} vaga={vaga} />
               ))
             )}
+            <div className="flex justify-end w-full mt-4">
+              {currentPage > 1 ? (
+                <button
+                  className="bg-gray-200 text-gray-700 px-4 py-2 rounded mr-2"
+                  onClick={() => {
+                    setLoading(true);
+                    setCurrentPage((prev) => prev - 1);
+                  }}
+                  disabled={currentPage === 1}
+                >
+                  Anterior
+                </button>
+              ) : (
+                <></>
+              )}
+              <button
+                className="bg-gray-200 text-gray-700 px-4 py-2 rounded"
+                onClick={() => {
+                  setLoading(true);
+                  setCurrentPage((prev) => prev + 1);
+                }}
+                disabled={currentPage === totalPages}
+              >
+                Próximo
+              </button>
+            </div>
           </div>
         </div>
       </div>

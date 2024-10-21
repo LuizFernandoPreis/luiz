@@ -13,16 +13,19 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ message: ZodError?.errors[0].message });
     }
 
-    const data = action.vaga().create(body);
+    const vaga = await action.vaga().create(body);
 
-    return NextResponse.json({ message: "Vaga cadastrada com sucesso!", data });
+    return NextResponse.json({ message: "Vaga cadastrada com sucesso!", vaga });
 }
 
 export async function GET(request: NextRequest) {
     const param = request.nextUrl.searchParams;
+    const page = parseInt(param.get("page") ?? "1");
+    const limit = parseInt(param.get("limit") ?? "5");
     const id = param.get("id");
 
-    const data = await action.vaga().findAll();
+
+    const data = await action.vaga().findAll(page,limit);
 
     return NextResponse.json({  data });
 }
