@@ -5,19 +5,14 @@ import { isLoggedIn } from "@/lib/auth/session-user";
 import { useRouter } from 'next/navigation';
 import { Building, Pin, Hammer, ChartBar, Scroll } from "lucide-react";
 import Image from "next/image";
+import { Vaga } from "@prisma/client";
+import { useEffect, useState } from "react";
 
-type vagaType = {
-  id: number;
-  titulo: string;
-  empresa: string;
-  local: string;
-  modalidade: string;
-  senioridade: string;
-  contratacao: string;
-};
 
-export default function VagaCard({ vaga }: { vaga: vagaType }) {
+
+export default function VagaCard({ vaga }: { vaga: Vaga }) {
   const { data: session } = useSession();
+  const [nomeEmpresa, setNomeEmpresa] = useState("");
   const router = useRouter();
 
   const handleClick: React.MouseEventHandler<HTMLDivElement> = async (event) => {
@@ -28,6 +23,15 @@ export default function VagaCard({ vaga }: { vaga: vagaType }) {
     }
   };
   
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetch("/api/empresa?cnpj=" + vaga.empresaId);
+      const empresa = await data.json();
+      setNomeEmpresa(empresa.nome);
+    }
+    fetchData();
+  }, []);
+
   return (
     <div className="flex-1">
       <div
@@ -37,7 +41,7 @@ export default function VagaCard({ vaga }: { vaga: vagaType }) {
       >
         <Image
           className="mr-4 max-h-[100px] "
-          src="/icons/ifsc.png"
+          src="/icons/ifsc.jpg"
           alt="Logo"
           width={100}
           height={100}
@@ -47,7 +51,7 @@ export default function VagaCard({ vaga }: { vaga: vagaType }) {
           <div className="flex flex-wrap gap-4 text-gray-700">
             <p className="flex">
               {" "}
-              <Building /> Empresa: {vaga.empresa}
+              <Building /> Empresa: {nomeEmpresa}
             </p>
             <p className="flex">
               {" "}
@@ -63,7 +67,7 @@ export default function VagaCard({ vaga }: { vaga: vagaType }) {
             </p>
             <p className="flex">
               {" "}
-              <Scroll /> Contratação: {vaga.contratacao}
+              <Scroll /> Contratação: {vaga.contatacao}
             </p>
           </div>
         </div>

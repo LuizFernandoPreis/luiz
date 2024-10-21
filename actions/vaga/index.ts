@@ -1,7 +1,8 @@
 import { createAction } from './create'
 // import { deleteAction } from './delete'
 // import { findAction } from './find'
-// import { findManyAction } from './find-many'
+import { findManyAction } from './find-many'
+import { findAllAction } from './findAll'
 // import { updateAction } from './update'
 
 export const vagaAction = () => {
@@ -9,7 +10,8 @@ export const vagaAction = () => {
     create: createAction,
     // delete: deleteAction,
     // find: findAction,
-    // findMany: findManyAction,
+    findMany: findManyAction,
+    findAll: findAllAction,
     // update: updateAction,
   }
 }

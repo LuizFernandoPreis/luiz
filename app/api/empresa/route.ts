@@ -4,6 +4,16 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest) {
     const params = request.nextUrl.searchParams;
     const usuarioId = params.get("id");
+    const cnpj = params.get("cnpj");
+
+    if(cnpj) {
+        try {
+            const empresa = await action.empresa().find({ where: { cnpj } });
+            return NextResponse.json(empresa.data);
+        } catch (error) {
+            return NextResponse.json({ error });
+        }
+    }
     
     if (!usuarioId) {
         return NextResponse.json("Missing id parameter", { status: 400 });

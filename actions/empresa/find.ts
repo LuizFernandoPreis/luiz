@@ -6,7 +6,7 @@ import { Prisma, Empresa } from '@prisma/client'
 export const findAction = async ({
   where,
 }: {
-  where: Pick<Prisma.EmpresaWhereUniqueInput, 'usuarioId' >
+  where: Pick<Prisma.EmpresaWhereUniqueInput, 'usuarioId' | 'cnpj' >
 }): Promise<{
   data: Empresa | null
 }> => {

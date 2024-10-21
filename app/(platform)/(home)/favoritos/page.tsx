@@ -2,9 +2,9 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import CursoCard from "../(home)/cursos/_components/cursoCard";
-import Curso from "../(home)/cursos/types/cursoType";
-import Spinner from "../_components/spinner";
+import CursoCard from "../cursos/_components/cursoCard";
+import Curso from "../cursos/types/cursoType";
+import Spinner from "../../_components/spinner";
 
 export default function FavoritosPage() {
   const [loading, setLoading] = useState(true);

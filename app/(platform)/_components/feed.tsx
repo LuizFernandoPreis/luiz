@@ -4,44 +4,38 @@ import TagSearch from "./tagSearch";
 import VagaCard from "./vagaCard";
 import Spinner from "./spinner";
 import { useApp } from "../contexts/ctxHome";
+import { Vaga } from "@prisma/client";
 
 export default function Feed() {
   const [loading, setLoading] = useState(true);
   const { searchParam, setSearchParam } = useApp();
+  const [vagas, setVagas] = useState<Vaga[]>([]);
 
-  const vagas = [
-    {
-      id: 0,
-      titulo: "Programador JAVA",
-      empresa: "IFSC - Tubarão",
-      local: "Tubarão",
-      modalidade: "Presencial",
-      senioridade: "Pleno",
-      contratacao: "CLT",
-    },
-    {
-      id: 1,
-      titulo: "Programador PHP",
-      empresa: "IFSC - Tubarão",
-      local: "Tubarão",
-      modalidade: "Híbrido",
-      senioridade: "Junior",
-      contratacao: "CLT",
-    },
-  ];
-
-  // Filtra as vagas baseadas no título e searchParam
+  
   const filteredVagas = vagas.filter((vaga) =>
     vaga.titulo.toLowerCase().includes(searchParam.toLowerCase())
   );
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 500); 
-
-    return () => clearTimeout(timer);
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/vaga");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setVagas(data.data.vagas);
+        console.log(data.data.vagas);
+      } catch (error) {
+        console.error("Fetch error: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchData();
   }, []);
+  
 
   return (
     <div className="mx-auto flex flex-col mb-24">
