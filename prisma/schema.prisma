@@ -44,7 +44,7 @@ model Empresa {
   descricao String
 
   usuario   Usuario @relation("UserId", fields: [usuarioId], references: [id])
-  usuarioId String
+  usuarioId String  @unique
 
   Vaga Vaga[] @relation("EmpId")
 }

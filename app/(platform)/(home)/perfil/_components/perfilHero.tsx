@@ -12,7 +12,7 @@ export default function HeroSection({
             <div
                 className="absolute inset-0 -z-20 bg-cover bg-center"
                 style={{
-                    backgroundImage: `${user.userCapaImage}`,
+                    backgroundImage: `${user.userCapaImage ? `${user.userCapaImage}` : `url(/icons/capaPlaceholder.png)`}`,
                     backgroundAttachment: 'fixed',
                 }}
             ></div>

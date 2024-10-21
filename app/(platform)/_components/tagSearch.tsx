@@ -20,7 +20,7 @@ export default function TagSearch() {
     );
   };
 
-  const contratoTag = ["PJ", "CLT"];
+  const contratoTag = ["PJ", "CLT", "Estágio"];
   const modalidateTag = ["Presencial", "Híbrido", "Remoto"];
   const SenioridadeTag = ["Trainee", "Estágio", "Junior", "Pleno", "Senior"];
 
