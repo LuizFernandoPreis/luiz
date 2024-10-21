@@ -1,11 +1,9 @@
 import { action } from "@/actions";
 import { VagaSchema } from "@/actions/vaga/schema";
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 
 export async function POST(request: NextRequest) {
     const body = await request.json();
-
     
     const { success, error: ZodError } = await VagaSchema.safeParse(body); 
    
@@ -24,6 +22,11 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(param.get("limit") ?? "5");
     const id = param.get("id");
 
+    if(id){
+        const search = parseInt(id);
+        const vaga = await action.vaga().find({ where: { id: search } });
+        return NextResponse.json({ vaga });
+    }
 
     const data = await action.vaga().findAll(page,limit);
 
