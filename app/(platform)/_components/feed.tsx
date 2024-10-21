@@ -28,9 +28,8 @@ export default function Feed() {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        console.log(data.data);
         setVagas(data.data.vagas);
-        setCount(data.totalCount);
+        setCount(data.data.totalCount);
       } catch (error) {
         console.error("Fetch error: ", error);
       } finally {
@@ -41,7 +40,6 @@ export default function Feed() {
     fetchData();
   }, [currentPage]);
 
-  const totalPages = Math.ceil(count / limit);
 
   return (
     <div className="mx-auto flex flex-col mb-24">
@@ -77,16 +75,19 @@ export default function Feed() {
               ) : (
                 <></>
               )}
-              <button
-                className="bg-gray-200 text-gray-700 px-4 py-2 rounded"
-                onClick={() => {
-                  setLoading(true);
-                  setCurrentPage((prev) => prev + 1);
-                }}
-                disabled={currentPage === totalPages}
-              >
-                Próximo
-              </button>
+              {currentPage < count / limit ? (
+                <button
+                  className="bg-gray-200 text-gray-700 px-4 py-2 rounded"
+                  onClick={() => {
+                    setLoading(true);
+                    setCurrentPage((prev) => prev + 1);
+                  }}
+                >
+                  Próximo
+                </button>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>
