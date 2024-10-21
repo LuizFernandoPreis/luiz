@@ -10,8 +10,8 @@ generator client {
 
 datasource db {
   provider  = "postgresql"
-  url       = env("tccifsc_PRISMA_URL") // uses connection pooling
-  directUrl = env("tccifsc_URL_NON_POOLING") // uses a direct connection
+  url       = env("tccifsc_PRISMA_URL") 
+  directUrl = env("tccifsc_URL_NON_POOLING")
 }
 
 model Usuario {
@@ -60,12 +60,28 @@ model Vaga {
 
   Empresa   Empresa @relation("EmpId", fields: [empresaId], references: [cnpj])
   empresaId String
+
+  Curso_vaga Curso_vaga[] @relation("CursoVagaId")
+}
+
+model Curso_vaga {
+  id Int @id @unique
+
+  Curso curso @relation("CursoVagaId", fields: [cursoId], references: [id])
+  cursoId Int
+  
+  vaga Vaga @relation("CursoVagaId", fields: [vagaId], references: [id])
+  vagaId Int
+  
+  @@unique([cursoId, vagaId])
 }
 
 model curso {
   id Int @id @unique
 
   Favorito Favoritos[] @relation("FavoritoCursoId")
+
+  Curso_vaga Curso_vaga[] @relation("CursoVagaId")
 }
 
 model Favoritos {

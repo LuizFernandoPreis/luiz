@@ -27,7 +27,7 @@ export default function SearchBar() {
                     onChange={onChange}
                     onKeyDown={onKeyDown} 
                     type="text" 
-                    placeholder="Busque por vagas..."
+                    placeholder="Busque por cursos..."
                     className="w-full py-3 pl-10 pr-4 text-lg text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-alternate/50"
                 />
                 <span className="absolute left-3 top-1/2 transform -translate-y-1/2">
