@@ -15,6 +15,7 @@ export default function VagaForm() {
     contatacao: "",
     descricao: "",
     empresaId: "",
+    requisitos: "",
   });
 
   const handleChange = (e: { target: { name: any; value: any; }; }) => {
@@ -148,6 +149,18 @@ export default function VagaForm() {
               name="descricao"
               className="w-full rounded"
               value={formData.descricao}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="flex gap-2 w-full">
+            <label htmlFor="requisitos">Requisitos:</label>
+            <textarea
+              id="requisitos"
+              name="requisitos"
+              className="w-full rounded"
+              value={formData.requisitos}
               onChange={handleChange}
               required
             />

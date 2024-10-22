@@ -12,14 +12,6 @@ export default function VagaCard({ vaga }: { vaga: Vaga }) {
   const { data: session } = useSession();
   const [nomeEmpresa, setNomeEmpresa] = useState("");
   const router = useRouter();
-
-  const handleClick: React.MouseEventHandler<HTMLDivElement> = async (event) => {
-    if (session) {
-      router.push(`/vaga/${vaga.id}`);
-    } else {
-      router.push('/auth/login')
-    }
-  };
   
   useEffect(() => {
     const fetchData = async () => {
@@ -33,8 +25,7 @@ export default function VagaCard({ vaga }: { vaga: Vaga }) {
   return (
     <div className="flex-1">
       <div
-        className="bg-white shadow-md p-4 rounded mb-4 w-full flex flex-col md:flex-row w-dvw-50 hover:bg-alternate"
-        onClick={handleClick}
+        className="bg-white shadow-md p-4 rounded mb-4 w-full flex flex-col md:flex-row w-dvw-50"
         id={String(vaga.id)}
       >
         <Image

@@ -8,10 +8,10 @@ type InputType = z.infer<typeof VagaSchema>;
 type ReturnType = ActionState<InputType, Vaga>;
 
 export const createAction = async (data: InputType): Promise<ReturnType> => {
-   const {  titulo, modalidade, descricao, senioridade, contatacao, empresaId, local} = data;
+   const {  titulo, modalidade, descricao, senioridade, contatacao, empresaId, local, requisitos} = data;
 
    try {
-     const vaga = await db.vaga.create({ data: { titulo, modalidade, descricao, senioridade, contatacao, empresaId, local} });
+     const vaga = await db.vaga.create({ data: { titulo, modalidade, descricao, senioridade, contatacao, empresaId, local, requisitos} });
      return { data: vaga };
    } catch (err) {
      return {

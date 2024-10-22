@@ -54,6 +54,7 @@ model Vaga {
   titulo      String
   local       String
   modalidade  String
+  requisitos  String
   senioridade String
   contatacao  String
   descricao   String
