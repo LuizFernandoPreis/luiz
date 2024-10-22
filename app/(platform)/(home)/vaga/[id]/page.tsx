@@ -41,8 +41,10 @@ export default function Page({ params }: { params: { id: string } }) {
       <div className="w-full h-full pt-8 px-16 mb-16">
         <div className="w-full p-16 bg-mercury">
           <div className="w-1/2">{vaga && <VagaCard vaga={vaga} />}</div>
-          <h1 className="font-medium text-2xl">Detalhes da Vaga</h1>
+          <h1 className="font-medium text-2xl mt-16">Detalhes da Vaga</h1>
           {vaga?.descricao}
+          <h1 className="font-medium text-2xl mt-16">Requisitos da vaga</h1>
+          {vaga?.requisitos}          
         </div> 
       </div>
     </div>
