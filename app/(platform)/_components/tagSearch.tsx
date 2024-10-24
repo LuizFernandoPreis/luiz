@@ -44,7 +44,7 @@ export default function TagSearch() {
   };
 
   return (
-    <div className="mb-4 md:w-1/4 md:block">
+    <div className="mb-4 md:min-w-64 md:w-1/4 md:block">
       <h2 className="text-2xl font-bold mb-4">Tags de Busca</h2>
       <div className="bg-white shadow-md p-4 rounded">
         <h3 className="font-semibold">Tipo de Contrato</h3>
