@@ -1,10 +1,12 @@
 "use client";
-import { Empresa } from "@prisma/client";
+import { Empresa, Vaga } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import VagaCard from "../../vaga/_components/vagaCard";
 
 export default function Home() {
   const session = useSession();
+  const [vagas, setVagas] = useState<Vaga[]>([]);
   const [formData, setFormData] = useState<Empresa>({
     nome: "",
     cnpj: "",
@@ -21,10 +23,16 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
+      // Dados da empresa
       const emp = await fetch(`/api/empresa/?id=${session?.data?.user?.id}`);
       const data = await emp.json();
-      console.log(data);
       setFormData(data);
+
+      // Vagas
+      const vagas = await fetch(`/api/empresa/vaga/?cnpj=${data.cnpj}`);
+      const vagasData = await vagas.json();
+      console.log(vagasData);
+      setVagas(vagasData);
     };
     fetchData();
   }, []);
@@ -72,8 +80,15 @@ export default function Home() {
       </div>
       <div className="flex w-full flex-col justify-center mt-8">
         <h1 className="font-semibold text-2xl text-center"> Minhas Vagas</h1>
-        <div className="flex justify-center">
-          <div className="bg-mercury w-2/3 rounded-md min-h-16"></div>
+        <div className="flex justify-center">   
+          <div className="bg-mercury w-2/3 rounded-md min-h-16">
+            {vagas.map((vaga)=>{
+              return(
+              <>
+              <VagaCard key={vaga.id} vaga={vaga} />
+              </>)
+            })}
+          </div>
         </div>
       </div>
     </div>

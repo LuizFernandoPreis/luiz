@@ -2,27 +2,32 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import Curso from "../types/cursoType";
-import { Star } from "lucide-react";
+import { CirclePlus } from "lucide-react";
 import { useEffect, useState } from "react";
+import Curso from "../../cursos/types/cursoType";
 
-export default function VagaCard({ curso }: { curso: Curso }) {
+type cardProps = {
+    curso: Curso,
+    vagaId: Number,
+    isEdit: boolean
+}
+export default function VagaCard({ curso, vagaId, isEdit }: cardProps) {
   const { data: session } = useSession();
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    const fetchFav = async () => {
+    const fetchAdded = async () => {
       if (session) {
-        const response = await fetch(`/api/cursos/fav/?id=${session.user?.id}&cursoId=${curso.id}`);
+        const response = await fetch(`/api/cursos/vaga/?id=${vagaId}&cursoId=${curso.id}`);
         const res = await response.json();
-        
+        console.log(res)
         if(res){
-          setIsFavorite(true);
+          setIsAdded(true);
         }
       }
     };
-    fetchFav();
+    fetchAdded();
   }, []);
 
   const handleClick: React.MouseEventHandler<HTMLDivElement> = async (
@@ -37,14 +42,17 @@ export default function VagaCard({ curso }: { curso: Curso }) {
 
   const handleFavorite: React.MouseEventHandler<HTMLSpanElement> = async () => {
     if (session) {
-      if(!isFavorite){
-        setIsFavorite(!isFavorite);
+      if(!isAdded){
+        setIsAdded(!isAdded);
         const response = await fetch(`/api/cursos`, {method:'POST', body: JSON.stringify({id: curso.id})});
-        const favRes = await fetch(`/api/cursos/fav`, {method:'POST', body: JSON.stringify({usuarioId: session.user?.id, cursoId: curso.id})}); 
+        const favRes = await fetch(`/api/cursos/vaga`, {method:'POST', body: JSON.stringify({vagaId: vagaId, cursoId: curso.id})}); 
+        const js = await favRes.json()
+        console.log(js)
         return;
       }
-      const favRes = await fetch(`/api/cursos/fav`, {method:'DELETE', body: JSON.stringify({usuarioId: session.user?.id, cursoId: curso.id})});
-      setIsFavorite(!isFavorite);
+      const favRes = await fetch(`/api/cursos/vaga`, {method:'DELETE', body: JSON.stringify({vagaId: vagaId, cursoId: curso.id})});
+      console.log(favRes)
+      setIsAdded(!isAdded);
     } else {
       router.push("/auth/login");
     }
@@ -79,14 +87,17 @@ export default function VagaCard({ curso }: { curso: Curso }) {
           </div>
         </div>
       </div>
-      <span
+      {
+        isEdit ? <span
         className={`flex p-1 right-2 top-2 ${
-          isFavorite ? "bg-yellow-100" : "bg-white"
+          isAdded ? "bg-yellow-100" : "bg-white"
         } rounded-lg absolute hover:bg-yellow-100`}
         onClick={handleFavorite}
       >
-        <Star />
-      </span>
+        <CirclePlus />
+      </span> : <></>
+      }
+      
     </div>
   );
 }

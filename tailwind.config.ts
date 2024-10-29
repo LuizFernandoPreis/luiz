@@ -13,6 +13,8 @@ const config: Config = {
         alternate: '#efebe5',
         alternateDark: '#d9d4ce',
         mercury: '#f8f8f8',
+        mercuryDark: '#d2d2d2',
+        btn: '#969696'
       },
     },
   },

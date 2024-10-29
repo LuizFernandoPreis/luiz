@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Footer } from "./_components/footer";
 import { Unauthenticated } from "./_components/unauthenticated";
 import { AppWrapper } from "../contexts/ctxHome";
+import { useRouter } from "next/navigation";
 
 export const metadata: Metadata = { title: "Autenticação" };
 

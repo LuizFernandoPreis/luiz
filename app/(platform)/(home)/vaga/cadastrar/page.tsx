@@ -35,7 +35,7 @@ export default function VagaForm() {
     });
     
     const vaga = await data.json();
-    router.push(`/vaga/${vaga.vaga.data.id}`);
+    router.push(`/vaga/cadastrar/${vaga.vaga.data.id}`);
   };    
 
   useEffect(() => {

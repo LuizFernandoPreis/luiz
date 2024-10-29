@@ -14,11 +14,12 @@ export async function GET(request: NextRequest) {
     }
 
     if (cId) {
+        const vagaId = parseInt(id);
         const cursoId = parseInt(cId);
-        const favorito = await db.favoritos.findFirst({
+        const favorito = await db.curso_vaga.findFirst({
             where: {
               AND: [
-                { usuarioId: id },
+                { vagaId },
                 { cursoId: cursoId },
               ],
             },
@@ -28,12 +29,13 @@ export async function GET(request: NextRequest) {
         return NextResponse.json(favorito);
     }
 
-    const favoritos = await db.favoritos.findMany({
+    const vagaId = parseInt(id);
+    const favoritos = await db.curso_vaga.findMany({
         select: {
           cursoId: true,
         },
         where: {
-          usuarioId: id,
+          vagaId
         },
       });
 
@@ -46,15 +48,15 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
     const body = await request.json();
 
-    let usuarioId = body.usuarioId;
+    let vagaId = body.vagaId;
     let cursoId = body.cursoId;
 
-    if (!usuarioId || !cursoId) {
+    if (!vagaId || !cursoId) {
         return NextResponse.json("Missing id or cursoId parameter", { status: 400 });
     }
 
-    const usuario = await db.usuario.findUnique({ where: { id: usuarioId } });
-    if (!usuario) {
+    const vaga = await db.vaga.findUnique({ where: { id: vagaId } });
+    if (!vaga) {
         return NextResponse.json("User not found", { status: 404 });
     }
 
@@ -63,31 +65,31 @@ export async function POST(request: NextRequest) {
         return NextResponse.json("Course not found", { status: 404 });
     }
 
-    const favorito = await db.favoritos.create({
+    const curso_vaga = await db.curso_vaga.create({
         data: {
-            usuarioId,
+            vagaId,
             cursoId,
         },
     });
 
-    return NextResponse.json(favorito);
+    return NextResponse.json(curso_vaga);
 }
 
 export async function DELETE(request: NextRequest) {
     const body = await request.json();
 
-    let usuarioId = body.usuarioId;
+    let vagaId = body.vagaId;
     let cursoId = body.cursoId;
 
-    if (!usuarioId || !cursoId) {
-        return NextResponse.json("Missing id or cursoId parameter", { status: 400 });
+    if (!vagaId || !cursoId) {
+        return NextResponse.json("Missing vagaId or cursoId parameter", { status: 400 });
     }
 
-    const favorito = await db.favoritos.delete({
+    const favorito = await db.curso_vaga.delete({
         where: {
-            usuarioId_cursoId: {
+            cursoId_vagaId: {
                 cursoId,
-                usuarioId,
+                vagaId,
         }},
     });
 

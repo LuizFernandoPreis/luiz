@@ -7,7 +7,6 @@ import SearchBar from "./_components/searchBar";
 import { useApp } from "../../contexts/ctxHome";
 
 export default function CursoPage() {
-  const [loading, setLoading] = useState(true);
   const { cursosApp,isSearching,
     setcursosApp, setisSearching} = useApp();
   useEffect(() => {
