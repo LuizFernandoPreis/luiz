@@ -6,12 +6,15 @@ import VagaCard from "../_components/vagaCard";
 import Spinner from "@/app/(platform)/_components/spinner";
 import Curso from "../../cursos/types/cursoType";
 import CursoCard from "../_components/cursoCard";
+import { BtnCandidatar } from "../_components/btnCandidatar";
 
 export default function Page({ params }: { params: { id: string } }) {
   const [vaga, setVaga] = useState<Vaga | null>(null);
   const [empresa, setEmpresa] = useState<Empresa | null>(null);
   const [isLoading, setLoading] = useState(true);
   const [cursos, setCurso] = useState<Curso[]>([])
+  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -33,18 +36,20 @@ export default function Page({ params }: { params: { id: string } }) {
 
 
         // Cursos vinculados
-        const responseCursos = await fetch('https://tcc-ifsc.vercel.app/api/cursos/vaga?id=' + params.id)
+        const responseCursos = await fetch('/api/cursos/vaga?id=' + params.id)
         const dataCursos = await responseCursos.json();
         console.log(dataCursos)
         setCurso(dataCursos)
         setLoading(false);
+         
+        
       } catch (error) {
         console.error("Fetch error: ", error);
       }
     };
     fetchData();
   }, []);
-
+  
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       {empresa && <HeroSection empresa={empresa} />}
@@ -73,11 +78,7 @@ export default function Page({ params }: { params: { id: string } }) {
               <p className="text-gray-600">{vaga?.requisitos}</p>
             </div>
 
-            <div className="flex items-center justify-center md:justify-end">
-              <button className="bg-btn text-white text-xl px-6 py-3 rounded-lg shadow-md hover:bg-mercuryDark transition">
-                Candidatar-se
-              </button>
-            </div>
+            <BtnCandidatar id={parseInt(params.id)}/>
           </div>
         </div>
         <h1 className="text-center text-3xl pt-8 font-semibold text-gray-800 mb-8">

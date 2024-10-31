@@ -36,6 +36,7 @@ model Usuario {
 
   @@index([id])
   @@index([email])
+  usuario_vaga usuario_vaga[] @relation("userVaga")
 }
 
 model Empresa {
@@ -63,6 +64,8 @@ model Vaga {
   empresaId String
 
   Curso_vaga Curso_vaga[] @relation("CursoVagaId")
+
+  usuario_vaga usuario_vaga[] @relation("vagaUser")
 }
 
 model Curso_vaga {
@@ -75,6 +78,18 @@ model Curso_vaga {
   vagaId Int
   
   @@unique([cursoId, vagaId])
+}
+
+model usuario_vaga{
+  id Int @id @unique @default(autoincrement())
+
+  usuario Usuario @relation("userVaga", fields: [userId], references: [id])
+  userId String
+
+  vaga Vaga @relation("vagaUser", fields: [vagaId], references: [id])
+  vagaId Int
+
+  @@unique([userId, vagaId])
 }
 
 model curso {
