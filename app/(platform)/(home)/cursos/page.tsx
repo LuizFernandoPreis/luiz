@@ -12,7 +12,7 @@ export default function CursoPage() {
   useEffect(() => {
     const fetchCurso = async () => {
       try {
-        const response = await fetch("https://tcc-ifsc.vercel.app/api/cursos");
+        const response = await fetch("/api/cursos");
         const res = await response.json();
         setcursosApp(res);
         console.log(cursosApp);

@@ -13,7 +13,7 @@ export default function SearchBar() {
     const onKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             setisSearching(true);
-            const response = await fetch(`https://tcc-ifsc.vercel.app/api/cursos?search=${searchCursoParam}`)
+            const response = await fetch(`/api/cursos?search=${searchCursoParam}`)
             const res = await response.json();
             setcursosApp(res);
             setisSearching(false);

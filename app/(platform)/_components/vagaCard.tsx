@@ -33,7 +33,7 @@ export default function VagaCard({ vaga }: { vaga: Vaga }) {
   return (
     <div className="flex-1">
       <div
-        className="bg-white shadow-md p-4 rounded mb-4 w-full flex flex-col md:flex-row w-dvw-50 hover:bg-alternate"
+        className="bg-white shadow-md p-4 rounded mb-4 w-full flex flex-col md:flex-row w-dvw-50 hover:bg-alternate cursor-pointer"
         onClick={handleClick}
         id={String(vaga.id)}
       >

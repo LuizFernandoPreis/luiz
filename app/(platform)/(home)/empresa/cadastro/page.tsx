@@ -24,16 +24,13 @@ export default function EmpresaForm() {
 
   const onSubmit = async (data: EmpresaFormData) => {
     try {
-      console.log("Dados recebidos no submit:", data);
       data = { ...data, cnpj: data.cnpj.replace(/\D/g, "") };
 
       if (!session.data?.user?.id) {
         alert("Usuário não encontrado na sessão.");
         return;
       }
-      const requestData = { ...data, usuarioId: session.data.user.id };
-
-      console.log("Dados enviados para API:", requestData);
+      const requestData = { ...data, usuarioId: session.data.user.id }; 
 
       const empresaResponse = await fetch("/api/empresa", {
         method: "POST",
@@ -48,12 +45,14 @@ export default function EmpresaForm() {
       const papelResponse = await fetch("/api/usuario/papel", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ papel: "J" }),
+        body: JSON.stringify({ id: session.data.user.id ,papel: "J" }),
       });
 
       if (!papelResponse.ok) {
         throw new Error("Erro ao atualizar papel do usuário.");
       }
+      
+      window.location.reload();
       reset();
       router.push("/perfil");
     } catch (error) {

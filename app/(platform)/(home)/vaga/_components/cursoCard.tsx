@@ -59,7 +59,7 @@ export default function VagaCard({ curso, vagaId, isEdit }: cardProps) {
   };
 
   return (
-    <div className="flex w-60 h-80 shadow-md rounded-md p-0.5 transform transition-transform duration-300 hover:scale-105 relative">
+    <div className="flex w-60 h-80 shadow-md rounded-md p-0.5 transform transition-transform duration-300 hover:scale-105 relative cursor-pointer">
       <div className="bg-mercury w-full h-40 rounded relative p-0.5" onClick={handleClick}>
         <div className="relative h-full w-full">
           <Image
