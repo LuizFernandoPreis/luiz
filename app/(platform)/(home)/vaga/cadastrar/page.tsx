@@ -16,6 +16,7 @@ export default function VagaForm() {
     descricao: "",
     empresaId: "",
     requisitos: "",
+    salario: "A combinar",
   });
 
   const handleChange = (e: { target: { name: any; value: any; }; }) => {
@@ -25,37 +26,34 @@ export default function VagaForm() {
 
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-
-    const data = await fetch('/api/vaga', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    const data = await fetch("/api/vaga", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     });
-    
+
     const vaga = await data.json();
     router.push(`/vaga/cadastrar/${vaga.vaga.data.id}`);
-  };    
+  };
 
   useEffect(() => {
     const fetchData = async () => {
-        const emp = await fetch(`/api/empresa/?id=${session?.data?.user?.id}`);
-        const data = await emp.json();
-        setFormData((prevData) => ({ ...prevData, empresaId: data.cnpj }));
-    }
+      const emp = await fetch(`/api/empresa/?id=${session?.data?.user?.id}`);
+      const data = await emp.json();
+      setFormData((prevData) => ({ ...prevData, empresaId: data.cnpj }));
+    };
     fetchData();
   }, []);
 
   return (
-    <div className="flex flex-col justify-center w-full">
+    <div className="flex flex-col items-center w-full px-4 sm:px-8">
       <h1 className="text-center w-full font-bold text-2xl mt-2">Cadastre sua Vaga</h1>
-      <div className="flex justify-center">
+      <div className="flex justify-center w-full">
         <form
-          className="flex flex-col bg-mercury mt-8 rounded-md p-8 w-2/3 gap-8 shadow-md"
+          className="flex flex-col bg-mercury mt-8 rounded-md p-4 sm:p-8 w-full sm:w-2/3 gap-6 sm:gap-8 shadow-md"
           onSubmit={handleSubmit}
         >
-          <div className="flex gap-2 w-full">
+          <div className="flex flex-col gap-2 w-full">
             <label htmlFor="titulo">Título:</label>
             <input
               id="titulo"
@@ -68,7 +66,7 @@ export default function VagaForm() {
             />
           </div>
 
-          <div className="flex gap-2 w-full">
+          <div className="flex flex-col gap-2 w-full">
             <label htmlFor="local">Local:</label>
             <input
               id="local"
@@ -81,18 +79,18 @@ export default function VagaForm() {
             />
           </div>
 
-          <div className="flex gap-4 w-full">
-            <div className="flex gap-2 w-1/3">
+          <div className="flex flex-col sm:flex-row gap-4 w-full">
+            <div className="flex flex-col gap-2 w-full sm:w-1/3">
               <label htmlFor="modalidade">Modalidade:</label>
               <select
                 id="modalidade"
                 name="modalidade"
-                className="w-full rounded"
+                className="w-full rounded p-2"
                 value={formData.modalidade}
                 onChange={handleChange}
                 required
               >
-                <option value="" className="bg-mercury" disabled>
+                <option value="" disabled>
                   Selecione
                 </option>
                 <option value="Presencial">Presencial</option>
@@ -101,17 +99,17 @@ export default function VagaForm() {
               </select>
             </div>
 
-            <div className="flex gap-2 w-1/3">
+            <div className="flex flex-col gap-2 w-full sm:w-1/3">
               <label htmlFor="senioridade">Senioridade:</label>
               <select
                 id="senioridade"
                 name="senioridade"
-                className="w-full rounded"
+                className="w-full rounded p-2"
                 value={formData.senioridade}
                 onChange={handleChange}
                 required
               >
-                <option value="" className="bg-mercury" disabled>
+                <option value="" disabled>
                   Selecione
                 </option>
                 <option value="Trainee">Trainee</option>
@@ -122,17 +120,17 @@ export default function VagaForm() {
               </select>
             </div>
 
-            <div className="flex gap-2 w-1/3">
+            <div className="flex flex-col gap-2 w-full sm:w-1/3">
               <label htmlFor="contatacao">Contratação:</label>
               <select
                 id="contatacao"
                 name="contatacao"
-                className="w-full rounded"
+                className="w-full rounded p-2"
                 value={formData.contatacao}
                 onChange={handleChange}
                 required
               >
-                <option value="" className="bg-mercury" disabled>
+                <option value="" disabled>
                   Selecione
                 </option>
                 <option value="CLT">CLT</option>
@@ -142,24 +140,37 @@ export default function VagaForm() {
             </div>
           </div>
 
-          <div className="flex gap-2 w-full">
+          <div className="flex flex-col gap-2 w-full">
+            <label htmlFor="salario">Salário</label>
+            <input
+              type="text"
+              name="salario"
+              id="salario"
+              className="w-full rounded"
+              value={formData.salario}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="flex flex-col gap-2 w-full">
             <label htmlFor="descricao">Descrição:</label>
             <textarea
               id="descricao"
               name="descricao"
-              className="w-full rounded"
+              className="w-full rounded whitespace-pre-wrap"
               value={formData.descricao}
               onChange={handleChange}
               required
             />
           </div>
 
-          <div className="flex gap-2 w-full">
+          <div className="flex flex-col gap-2 w-full">
             <label htmlFor="requisitos">Requisitos:</label>
             <textarea
               id="requisitos"
               name="requisitos"
-              className="w-full rounded"
+              className="w-full rounded whitespace-pre-wrap"
               value={formData.requisitos}
               onChange={handleChange}
               required
@@ -169,7 +180,7 @@ export default function VagaForm() {
           <div className="flex w-full justify-end">
             <button
               type="submit"
-              className="bg-alternate text-white rounded p-2 w-2/5 hover:bg-alternateDark"
+              className="bg-alternate text-white rounded p-2 w-full sm:w-2/5 hover:bg-alternateDark"
             >
               Criar Vaga
             </button>

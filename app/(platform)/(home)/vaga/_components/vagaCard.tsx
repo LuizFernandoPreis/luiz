@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/navigation';
-import { Building, Pin, Hammer, ChartBar, Scroll } from "lucide-react";
+import { Building, Pin, Hammer, ChartBar, Scroll, HandCoins } from "lucide-react";
 import Image from "next/image";
 import { Vaga } from "@prisma/client";
 import { useEffect, useState } from "react";
@@ -57,6 +57,10 @@ export default function VagaCard({ vaga }: { vaga: Vaga }) {
             <p className="flex">
               {" "}
               <Scroll /> Contratação: {vaga.contatacao}
+            </p>
+            <p className="flex">
+              {" "}
+              <HandCoins /> Salário: {vaga.salario}
             </p>
           </div>
         </div>

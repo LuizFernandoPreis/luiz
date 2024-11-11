@@ -9,5 +9,6 @@ export const VagaSchema = z.object({
     empresaId: z.string({ required_error: 'A empresaId é obrigatória' }),
     requisitos: z.string({ required_error: 'Os requisitos são obrigatórios' }),
     local: z.string({ required_error: 'O local é obrigatório' }),
+    salario: z.string(),
 })
 

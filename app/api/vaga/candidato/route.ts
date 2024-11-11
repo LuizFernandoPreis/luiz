@@ -6,13 +6,26 @@ export async function GET(request: NextRequest) {
     const params = request.nextUrl.searchParams;
     let id = params.get("id");
     let vId = params.get("vagaId");
-    
+    let qtd = params.get("qtd");
 
-    if (!id) {
-        return NextResponse.json("Missing id parameter", { status: 400 });
+    // Retorna a quantidade de candidatos para uma vaga
+    if(qtd && vId) {
+        const vagaId = parseInt(vId);
+        const candidato = await db.usuario_vaga.count({where:{vagaId: vagaId}});
+
+        return NextResponse.json(candidato);
     }
 
-    if (vId) {
+    // Retorna todos os candidatos para uma vaga
+    if (!id && vId) {
+        const vagaId = parseInt(vId);
+        const candidato = await db.usuario_vaga.findMany({where:{vagaId: vagaId}});
+
+        return NextResponse.json(candidato);
+    }
+
+    // Retorna se está candidatado a uma vaga especifica
+    if (vId && id) {
         const vagaId = parseInt(vId);
         const vaga = await db.usuario_vaga.findFirst({
             where: {
@@ -26,6 +39,9 @@ export async function GET(request: NextRequest) {
 
         return NextResponse.json(vaga);
     }
+
+    // retorna em caso de não parametros
+    return NextResponse.json("Missing id or vagaId parameter", { status: 400 });
 }
 
 export async function POST(request: NextRequest) {

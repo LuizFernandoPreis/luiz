@@ -37,6 +37,7 @@ model Usuario {
   @@index([id])
   @@index([email])
   usuario_vaga usuario_vaga[] @relation("userVaga")
+  usuario_curso usuario_curso[] @relation("userCurso")
 }
 
 model Empresa {
@@ -58,7 +59,8 @@ model Vaga {
   requisitos  String
   senioridade String
   contatacao  String
-  descricao   String
+  descricao   String 
+  salario     String @default("A combinar")
 
   Empresa   Empresa @relation("EmpId", fields: [empresaId], references: [cnpj])
   empresaId String
@@ -92,12 +94,26 @@ model usuario_vaga{
   @@unique([userId, vagaId])
 }
 
+model usuario_curso{
+  id Int @id @unique @default(autoincrement())
+
+  usuario Usuario @relation("userCurso", fields: [userId], references: [id])
+  userId String
+
+  Curso curso @relation("cursoUser", fields: [cursoId], references: [id])
+  cursoId Int
+
+  @@unique([userId, cursoId])
+}
+
 model curso {
   id Int @id @unique
 
   Favorito Favoritos[] @relation("FavoritoCursoId")
 
   Curso_vaga Curso_vaga[] @relation("CursoVagaId")
+
+  usuario_curso usuario_curso[] @relation("cursoUser")
 }
 
 model Favoritos {
