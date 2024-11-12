@@ -55,12 +55,12 @@ export default function VagaForm() {
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div className="flex flex-col gap-2">
-              <label htmlFor="titulo">Título:</label>
               <input
                 id="titulo"
                 name="titulo"
                 type="text"
-                className="w-full rounded"
+                className="focus:ring-2 focus:ring-alternateDark focus:outline-none appearance-none w-full text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-4 ring-1 ring-slate-200 shadow-sm"
+                placeholder="Titulo"
                 value={formData.titulo}
                 onChange={handleChange}
                 required
@@ -68,12 +68,12 @@ export default function VagaForm() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <label htmlFor="local">Local:</label>
               <input
                 id="local"
                 name="local"
                 type="text"
-                className="w-full rounded"
+                className="focus:ring-2 focus:ring-alternateDark focus:outline-none appearance-none w-full text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-4 ring-1 ring-slate-200 shadow-sm"
+                placeholder="Local"
                 value={formData.local}
                 onChange={handleChange}
                 required
@@ -87,7 +87,7 @@ export default function VagaForm() {
               <select
                 id="modalidade"
                 name="modalidade"
-                className="w-full rounded p-2"
+                className="bg-mercuryDark focus:ring-2 focus:ring-alternateDark focus:outline-none appearance-none w-full text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-4 ring-1 ring-slate-200 shadow-sm"
                 value={formData.modalidade}
                 onChange={handleChange}
                 required
@@ -104,7 +104,7 @@ export default function VagaForm() {
               <select
                 id="senioridade"
                 name="senioridade"
-                className="w-full rounded p-2"
+                className="bg-mercuryDark focus:ring-2 focus:ring-alternateDark focus:outline-none appearance-none w-full text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-4 ring-1 ring-slate-200 shadow-sm"
                 value={formData.senioridade}
                 onChange={handleChange}
                 required
@@ -123,7 +123,7 @@ export default function VagaForm() {
               <select
                 id="contatacao"
                 name="contatacao"
-                className="w-full rounded p-2"
+                className="bg-mercuryDark focus:ring-2 focus:ring-alternateDark focus:outline-none appearance-none w-full text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-4 ring-1 ring-slate-200 shadow-sm"
                 value={formData.contatacao}
                 onChange={handleChange}
                 required
@@ -141,12 +141,12 @@ export default function VagaForm() {
             <select
               id="salario"
               name="salario"
-              className="w-full rounded p-2"
+              className="bg-mercuryDark focus:ring-2 focus:ring-alternateDark focus:outline-none appearance-none w-full text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-4 ring-1 ring-slate-200 shadow-sm"
               value={formData.salario}
               onChange={handleChange}
               required
             >
-              <option value="" disabled>A Combinar</option>
+              <option value="A Combinar">A Combinar</option>
               <option value="Até R$1000">Até R$1000</option>
               <option value="R$1000 - R$2000">R$1000 - R$2000</option>
               <option value="R$2000 - R$3000">R$2000 - R$3000</option>
@@ -158,11 +158,11 @@ export default function VagaForm() {
           </div>
 
           <div className="flex flex-col gap-2 w-full">
-            <label htmlFor="descricao">Descrição:</label>
             <textarea
               id="descricao"
               name="descricao"
-              className="w-full rounded whitespace-pre-wrap"
+              className="focus:ring-2 focus:ring-alternateDark focus:outline-none appearance-none w-full text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-4 ring-1 ring-slate-200 shadow-sm whitespace-pre-wrap"
+              placeholder="Descrição"
               value={formData.descricao}
               onChange={handleChange}
               required
@@ -170,11 +170,11 @@ export default function VagaForm() {
           </div>
 
           <div className="flex flex-col gap-2 w-full">
-            <label htmlFor="requisitos">Requisitos:</label>
             <textarea
               id="requisitos"
               name="requisitos"
-              className="w-full rounded whitespace-pre-wrap"
+              className="focus:ring-2 focus:ring-alternateDark focus:outline-none appearance-none w-full text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-4 ring-1 ring-slate-200 shadow-sm whitespace-pre-wrap"
+              placeholder="Requisitos"
               value={formData.requisitos}
               onChange={handleChange}
               required

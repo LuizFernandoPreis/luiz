@@ -47,7 +47,7 @@ export default function EmpVagaPage({ params }: { params: { id: string } }){
         const dataCandidatos = await responseCandidatos.json();
         setQtdCandidatos(dataCandidatos)
 
-        
+
         setLoading(false);
         
       } catch (error) {
@@ -85,8 +85,8 @@ export default function EmpVagaPage({ params }: { params: { id: string } }){
               <p className="text-gray-600">{vaga?.requisitos}</p>
             </div>
             <div>
-                <h1 className="text-2xl font-semibold">Quantidade de inscritos</h1>
-                <h1 className="font-semibold">{qtdCandidatos}</h1>
+                <h1 className="text-2xl font-semibold text-center">Quantidade de inscritos</h1>
+                <h1 className="font-bold text-2xl text-center">{qtdCandidatos}</h1>
             </div>
           </div>
         </div>

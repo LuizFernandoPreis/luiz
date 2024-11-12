@@ -48,9 +48,9 @@ export default function Home() {
           action=""
         >
           <div className="flex gap-2 w-full">
-            <h1>Nome: </h1>
             <input
-              className="w-full rounded"
+              placeholder="Nome"
+              className="focus:ring-2 focus:ring-alternateDark focus:outline-none appearance-none w-full text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-4 ring-1 ring-slate-200 shadow-sm"
               type="text"
               name="nome"
               value={formData.nome}
@@ -58,20 +58,20 @@ export default function Home() {
             />
           </div>
           <div className="flex gap-2 w-full">
-            <h1>CNPJ: </h1>
             <input
-              className="w-full rounded"
+              className="focus:ring-2 focus:ring-alternateDark focus:outline-none appearance-none w-full text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-4 ring-1 ring-slate-200 shadow-sm"
               type="text"
+              placeholder="CNPJ"
               name="cnpj"
               value={formData.cnpj}
               onChange={handleChange}
             />
           </div>
           <div className="">
-            <h1>Descrição: </h1>
             <textarea
-              className="w-full rounded"
+              className="focus:ring-2 focus:ring-alternateDark focus:outline-none appearance-none w-full text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-4 ring-1 ring-slate-200 shadow-sm"
               name="descricao"
+              placeholder="Descrição"
               value={formData.descricao}
               onChange={handleChange}
             />
