@@ -41,7 +41,7 @@ export default function ModalUpdatePerfilImage({
 
     try {
       const response = await axios.post(
-        `http://localhost:3030/upload/${userId}/perfil`,
+        `http://92.113.34.132:3030/upload/${userId}/perfil`,
         formData,
         {
           headers: {

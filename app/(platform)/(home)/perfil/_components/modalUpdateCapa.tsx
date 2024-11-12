@@ -39,7 +39,7 @@ export default function ModalUpdateCapaImage({
 
     try {
       const response = await axios.post(
-        `http://localhost:3030/upload/${userId}/capa`,
+        `http://92.113.34.132:3030/upload/${userId}/capa`,
         formData,
         {
           headers: {
