@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-const URLBASE = 'http://localhost:3030';
+const URLBASE = 'http://92.113.34.132:3030/';
 
 interface UserUpdateModalProps {
   userId: string;
