@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 
 
-export default function VagaCard({ vaga }: { vaga: Vaga }) {
+export default function VagaCard({ vaga, isEmp }: { vaga: Vaga, isEmp: boolean}) {
   const { data: session } = useSession();
   const [nomeEmpresa, setNomeEmpresa] = useState("");
   const router = useRouter();
@@ -22,11 +22,16 @@ export default function VagaCard({ vaga }: { vaga: Vaga }) {
     fetchData();
   }, []);
 
+  function handleClick(){
+    if(!isEmp) return;
+    router.push(`/empresa/vaga/${vaga.id}`);
+  }  
   return (
     <div className="flex-1">
       <div
-        className="bg-white shadow-md p-4 rounded mb-4 w-full flex flex-col md:flex-row w-dvw-50"
+        className={`bg-white shadow-md p-4 rounded mb-4 w-full flex flex-col md:flex-row w-dvw-50 ${isEmp ? "hover:bg-alternate" : ""}`}
         id={String(vaga.id)}
+        onClick={handleClick}
       >
         <Image
           className="mr-4 max-h-[100px] "

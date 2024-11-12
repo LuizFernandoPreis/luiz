@@ -1,18 +1,19 @@
-"use client";
-import { useEffect, useState } from "react";
-import HeroSection from "../_components/vagaHero";
-import { Empresa, Vaga } from "@prisma/client";
-import VagaCard from "../_components/vagaCard";
+'use client'
 import Spinner from "@/app/(platform)/_components/spinner";
-import Curso from "../../cursos/types/cursoType";
-import CursoCard from "../_components/cursoCard";
-import { BtnCandidatar } from "../_components/btnCandidatar";
+import { Vaga, Empresa } from "@prisma/client";
+import { useState, useEffect } from "react";
+import Curso from "../../../cursos/types/cursoType";
+import { BtnCandidatar } from "../../../vaga/_components/btnCandidatar";
+import CursoCard from "../../../vaga/_components/cursoCard";
+import VagaCard from "../../../vaga/_components/vagaCard";
+import HeroSection from "../../../vaga/_components/vagaHero";
 
-export default function Page({ params }: { params: { id: string } }) {
-  const [vaga, setVaga] = useState<Vaga | null>(null);
-  const [empresa, setEmpresa] = useState<Empresa | null>(null);
-  const [isLoading, setLoading] = useState(true);
-  const [cursos, setCurso] = useState<Curso[]>([])
+export default function EmpVagaPage({ params }: { params: { id: string } }){
+    const [vaga, setVaga] = useState<Vaga | null>(null);
+    const [empresa, setEmpresa] = useState<Empresa | null>(null);
+    const [isLoading, setLoading] = useState(true);
+    const [cursos, setCurso] = useState<Curso[]>([])
+    const [qtdCandidatos, setQtdCandidatos] = useState(0)
   
 
   useEffect(() => {
@@ -40,15 +41,21 @@ export default function Page({ params }: { params: { id: string } }) {
         const dataCursos = await responseCursos.json();
         console.log(dataCursos)
         setCurso(dataCursos)
+
+        // Quantidade de candidatos
+        const responseCandidatos = await fetch('/api/vaga/candidato?qtd=S&vagaId=' + params.id)
+        const dataCandidatos = await responseCandidatos.json();
+        setQtdCandidatos(dataCandidatos)
+
+        
         setLoading(false);
-         
         
       } catch (error) {
         console.error("Fetch error: ", error);
       }
     };
     fetchData();
-  }, []);
+  }, [params.id]);
   
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -77,8 +84,10 @@ export default function Page({ params }: { params: { id: string } }) {
               </h2>
               <p className="text-gray-600">{vaga?.requisitos}</p>
             </div>
-
-            <BtnCandidatar id={parseInt(params.id)}/>
+            <div>
+                <h1 className="text-2xl font-semibold">Quantidade de inscritos</h1>
+                <h1 className="font-semibold">{qtdCandidatos}</h1>
+            </div>
           </div>
         </div>
         <h1 className="text-center text-3xl pt-8 font-semibold text-gray-800 mb-8">
@@ -102,5 +111,5 @@ export default function Page({ params }: { params: { id: string } }) {
         </div>
       </div>
     </div>
-  );
+    )
 }

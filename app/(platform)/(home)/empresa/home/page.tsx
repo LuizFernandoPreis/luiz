@@ -85,7 +85,7 @@ export default function Home() {
             {vagas.map((vaga)=>{
               return(
               <>
-              <VagaCard key={vaga.id} vaga={vaga} />
+              <VagaCard key={vaga.id} vaga={vaga} isEmp={true} />
               </>)
             })}
           </div>

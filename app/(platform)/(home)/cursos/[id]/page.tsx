@@ -5,6 +5,8 @@ import Image from "next/image";
 import Curso from "../types/cursoType";
 import { Review } from "../types/reviewType";
 import ReviewCard from "../_components/reviewCard";
+import Spinner from "@/app/(platform)/_components/spinner";
+import { BtnVincular } from "../_components/btnVincular";
 
 export default function CursoPage({ params }: { params: { id: string } }) {
   const [curso, setCurso] = useState<Curso | null>(null);
@@ -36,7 +38,7 @@ export default function CursoPage({ params }: { params: { id: string } }) {
     fetchCurso();
   }, [params.id]);
 
-  if (isLoading || !curso) return <div>Carregando...</div>;
+  if (isLoading || !curso) return <div className="flex w-full justify-center"> <Spinner/></div>;
 
   return (
     <>
@@ -61,14 +63,7 @@ export default function CursoPage({ params }: { params: { id: string } }) {
           </div>
 
           <div className="mt-8 flex justify-center">
-            <a
-              href={`https://www.udemy.com${curso.url}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-btn text-white px-6 py-3 rounded-lg text-xl font-semibold hover:bg-mercuryDark transition"
-            >
-              Vincular curso a minha conta
-            </a>
+            <BtnVincular id={parseInt(params.id)}/>
           </div>
         </div>
       </div>

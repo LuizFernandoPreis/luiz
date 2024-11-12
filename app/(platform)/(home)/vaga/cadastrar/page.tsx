@@ -53,34 +53,36 @@ export default function VagaForm() {
           className="flex flex-col bg-mercury mt-8 rounded-md p-4 sm:p-8 w-full sm:w-2/3 gap-6 sm:gap-8 shadow-md"
           onSubmit={handleSubmit}
         >
-          <div className="flex flex-col gap-2 w-full">
-            <label htmlFor="titulo">Título:</label>
-            <input
-              id="titulo"
-              name="titulo"
-              type="text"
-              className="w-full rounded"
-              value={formData.titulo}
-              onChange={handleChange}
-              required
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div className="flex flex-col gap-2">
+              <label htmlFor="titulo">Título:</label>
+              <input
+                id="titulo"
+                name="titulo"
+                type="text"
+                className="w-full rounded"
+                value={formData.titulo}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label htmlFor="local">Local:</label>
+              <input
+                id="local"
+                name="local"
+                type="text"
+                className="w-full rounded"
+                value={formData.local}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
 
-          <div className="flex flex-col gap-2 w-full">
-            <label htmlFor="local">Local:</label>
-            <input
-              id="local"
-              name="local"
-              type="text"
-              className="w-full rounded"
-              value={formData.local}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-4 w-full">
-            <div className="flex flex-col gap-2 w-full sm:w-1/3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="flex flex-col gap-2">
               <label htmlFor="modalidade">Modalidade:</label>
               <select
                 id="modalidade"
@@ -90,16 +92,14 @@ export default function VagaForm() {
                 onChange={handleChange}
                 required
               >
-                <option value="" disabled>
-                  Selecione
-                </option>
+                <option value="" disabled>Selecione</option>
                 <option value="Presencial">Presencial</option>
                 <option value="Híbrido">Híbrido</option>
                 <option value="Remoto">Remoto</option>
               </select>
             </div>
 
-            <div className="flex flex-col gap-2 w-full sm:w-1/3">
+            <div className="flex flex-col gap-2">
               <label htmlFor="senioridade">Senioridade:</label>
               <select
                 id="senioridade"
@@ -109,9 +109,7 @@ export default function VagaForm() {
                 onChange={handleChange}
                 required
               >
-                <option value="" disabled>
-                  Selecione
-                </option>
+                <option value="" disabled>Selecione</option>
                 <option value="Trainee">Trainee</option>
                 <option value="Estágio">Estágio</option>
                 <option value="Junior">Junior</option>
@@ -120,7 +118,7 @@ export default function VagaForm() {
               </select>
             </div>
 
-            <div className="flex flex-col gap-2 w-full sm:w-1/3">
+            <div className="flex flex-col gap-2">
               <label htmlFor="contatacao">Contratação:</label>
               <select
                 id="contatacao"
@@ -130,9 +128,7 @@ export default function VagaForm() {
                 onChange={handleChange}
                 required
               >
-                <option value="" disabled>
-                  Selecione
-                </option>
+                <option value="" disabled>Selecione</option>
                 <option value="CLT">CLT</option>
                 <option value="PJ">PJ</option>
                 <option value="Estágio">Estágio</option>
@@ -141,16 +137,24 @@ export default function VagaForm() {
           </div>
 
           <div className="flex flex-col gap-2 w-full">
-            <label htmlFor="salario">Salário</label>
-            <input
-              type="text"
-              name="salario"
+            <label htmlFor="salario">Salário:</label>
+            <select
               id="salario"
-              className="w-full rounded"
+              name="salario"
+              className="w-full rounded p-2"
               value={formData.salario}
               onChange={handleChange}
               required
-            />
+            >
+              <option value="" disabled>A Combinar</option>
+              <option value="Até R$1000">Até R$1000</option>
+              <option value="R$1000 - R$2000">R$1000 - R$2000</option>
+              <option value="R$2000 - R$3000">R$2000 - R$3000</option>
+              <option value="R$3000 - R$5000">R$3000 - R$5000</option>
+              <option value="R$6000 - R$10000">R$6000 - R$10000</option>
+              <option value="R$10000 - R$20000">R$10000 - R$20000</option>
+              <option value=">Maior que R$20000">Maior que R$20000</option>
+            </select>
           </div>
 
           <div className="flex flex-col gap-2 w-full">
