@@ -3,7 +3,7 @@ import { Empresa } from "@prisma/client";
 import { useEffect, useState } from "react";
 
 type HeroSectionProps = {
-  empresa: Empresa; // Corrigido para ser um tipo
+  empresa: Empresa;
 };
 
 export default function HeroSection({ empresa }: HeroSectionProps) {
@@ -12,16 +12,19 @@ export default function HeroSection({ empresa }: HeroSectionProps) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const userResponse = await fetch(
-        `/api/usuario/images/?id=${empresa.usuarioId}`
-      );
-      const user = await userResponse.json();
-      setPerfilImage(user.perfil || "/icons/ifsc.jpg");
-      setCapaImage(user.capa || "/icons/ifsc.capa2.jpg")
+      try {
+        const userResponse = await fetch(`/api/usuario/images/?id=${empresa.usuarioId}`);
+        const user = await userResponse.json();
+        setPerfilImage(user.perfil || "/icons/ifsc.jpg");
+        setCapaImage(user.capa || "/icons/ifsc.capa2.jpg");
+      } catch (error) {
+        console.error("Error fetching user images:", error);
+      }
     };
 
     fetchData();
-  }, []);
+  }, [empresa.usuarioId]);
+
   return (
     <div className="relative isolate overflow-hidden bg-gray-900 sm:py-32 min-h-[500px] max-h-[500px] flex items-center justify-center">
       <div className="absolute inset-0 -z-10 opacity-50" />
@@ -47,7 +50,7 @@ export default function HeroSection({ empresa }: HeroSectionProps) {
 
         <div className="flex justify-start align-bottom mt-8 mb-20 md:mb-4 w-full h-full">
           <div
-            className=" bg-cover bg-center w-[300px] h-[300px] max-md:mx-auto rounded-md"
+            className="bg-cover bg-center w-[300px] h-[300px] max-md:mx-auto rounded-md"
             style={{
               backgroundImage: `url(${perfilImage})`,
             }}
