@@ -1,17 +1,34 @@
+"use client";
 import { Empresa } from "@prisma/client";
+import { useEffect, useState } from "react";
 
 type HeroSectionProps = {
   empresa: Empresa; // Corrigido para ser um tipo
 };
 
 export default function HeroSection({ empresa }: HeroSectionProps) {
+  const [perfilImage, setPerfilImage] = useState("/icons/ifsc.jpg");
+  const [capaImage, setCapaImage] = useState("/icons/ifsc.capa2.jpg");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const userResponse = await fetch(
+        `/api/usuario/images/?id=${empresa.usuarioId}`
+      );
+      const user = await userResponse.json();
+      setPerfilImage(user.perfil || "/icons/ifsc.jpg");
+      setCapaImage(user.capa || "/icons/ifsc.capa2.jpg")
+    };
+
+    fetchData();
+  }, []);
   return (
     <div className="relative isolate overflow-hidden bg-gray-900 sm:py-32 min-h-[500px] max-h-[500px] flex items-center justify-center">
       <div className="absolute inset-0 -z-10 opacity-50" />
       <div
         className="absolute inset-0 -z-20 bg-cover bg-center"
         style={{
-          backgroundImage: `url(/icons/ifsc.capa2.jpg)`,
+          backgroundImage: `url(${capaImage})`,
           backgroundAttachment: "fixed",
         }}
       />
@@ -32,7 +49,7 @@ export default function HeroSection({ empresa }: HeroSectionProps) {
           <div
             className=" bg-cover bg-center w-[300px] h-[300px] max-md:mx-auto rounded-md"
             style={{
-              backgroundImage: `url(/icons/ifsc.jpg)`,
+              backgroundImage: `url(${perfilImage})`,
             }}
           />
         </div>

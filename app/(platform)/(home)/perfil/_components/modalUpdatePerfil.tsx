@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-const URLBASE = 'http://92.113.34.132:3030/'
+const URLBASE = "http://92.113.34.132:3030";
 
 interface UserUpdateModalProps {
   userId: string;
@@ -21,14 +21,12 @@ export default function ModalUpdatePerfilImage({
 
   const { handleSubmit } = useForm();
 
-  // Função que trata a mudança da imagem de capa
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setCapaImage(e.target.files[0]);
     }
   };
 
-  // Função para enviar a imagem ao servidor
   const onSubmit = async () => {
     if (!capaImage) {
       alert("Por favor, selecione uma imagem de capa.");
@@ -38,25 +36,25 @@ export default function ModalUpdatePerfilImage({
     setLoading(true);
     const formData = new FormData();
     formData.append("image", capaImage);
+    formData.append("id", userId); 
+    formData.append("dest", "perfil");
 
     try {
-      const response = await axios.post(
-        `http://92.113.34.132:3030/upload/${userId}/perfil`,
+      const uploadResponse = await axios.post(
+        `/api/usuario/images/`,
         formData,
         {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          headers: { "Content-Type": "multipart/form-data" },
         }
       );
 
       const body = {
-        url: URLBASE + response.data.filePath,
+        url: URLBASE + uploadResponse.data.filePath,
         id: userId,
         local: "perfil",
       };
 
-      // Atualiza a imagem no banco de dados
+      // Update image URL in database
       await axios.put("/api/usuario/images", body);
       alert("Imagem de perfil atualizada com sucesso!");
       onClose();

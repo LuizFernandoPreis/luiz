@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-const URLBASE = 'http://92.113.34.132:3030/';
+const URLBASE = 'http://92.113.34.132:3030';
 
 interface UserUpdateModalProps {
   userId: string;
@@ -36,10 +36,11 @@ export default function ModalUpdateCapaImage({
     setLoading(true);
     const formData = new FormData();
     formData.append("image", capaImage);
-
+    formData.append("id", userId); 
+    formData.append("dest", "capa");
     try {
       const response = await axios.post(
-        `http://92.113.34.132:3030/upload/${userId}/capa`,
+        `/api/usuario/images/`,
         formData,
         {
           headers: {

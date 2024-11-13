@@ -7,6 +7,8 @@ declare module 'next-auth' {
       id: string
       papel?: Papel
       imagePerfil?: string
+      perfilImage: string | null
+      capaImage: string | null
     }
   }
 }
@@ -14,5 +16,7 @@ declare module 'next-auth' {
 declare module 'next-auth/jwt' {
   interface JWT {
     papel?: Papel
+    perfilImage: string | null
+    capaImage: string | null
   }
 }

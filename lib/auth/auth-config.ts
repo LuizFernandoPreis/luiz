@@ -32,7 +32,9 @@ export const authConfig: NextAuthOptions = {
           id: user.id,
           name: user.nome,
           email: user.email,
-          papel: user.papel
+          papel: user.papel,
+          perfilImage: user.userPerfilImage,
+          capaImage: user.userCapaImage
         } 
       },
     }),
@@ -52,6 +54,8 @@ export const authConfig: NextAuthOptions = {
           token.name = existingUser.nome
           token.email = existingUser.email
           token.papel = existingUser.papel
+          token.perfilImage = existingUser.userPerfilImage
+          token.capaImage = existingUser.userCapaImage
         } else delete token.sub
       }
       return token
@@ -63,6 +67,8 @@ export const authConfig: NextAuthOptions = {
           name: token.name,
           email: token.email,
           papel: token.papel,
+          perfilImage: token.perfilImage,
+          capaImage: token.capaImage
         }
       return session
     },
