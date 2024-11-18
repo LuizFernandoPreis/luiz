@@ -17,7 +17,6 @@ export default function HeroSection({ children, user }: HeroProps) {
 
   return (
     <div className="relative isolate overflow-hidden bg-gray-900 sm:py-32 min-h-[300px]">
-      {/* Imagem de fundo */}
       <Image
         src={backgroundImage}
         alt="Capa do usuário"
@@ -26,10 +25,8 @@ export default function HeroSection({ children, user }: HeroProps) {
         objectPosition="center"
         className="absolute inset-0 -z-20 opacity-50"
         onClick={() => setIsModalCapaOpen(true)}
-        priority // Carrega a imagem com prioridade
+        priority 
       />
-      
-      {/* Modal para alterar a capa */}
       {isModalCapaOpen && (
         <ModalUpdateCapaImage
           userId={user.id}
@@ -38,7 +35,6 @@ export default function HeroSection({ children, user }: HeroProps) {
         />
       )}
 
-      {/* Conteúdo adicional */}
       {children}
     </div>
   );
