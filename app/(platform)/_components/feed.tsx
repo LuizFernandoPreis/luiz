@@ -7,39 +7,37 @@ import { useApp } from "../contexts/ctxHome";
 import { Vaga } from "@prisma/client";
 
 export default function Feed() {
-  const [loading, setLoading] = useState(true);
-  const { searchParam, setSearchParam } = useApp();
+  const [loading, setLoading] = useState(false);
+  const { searchParam } = useApp(); 
   const [vagas, setVagas] = useState<Vaga[]>([]);
   const [count, setCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 5;
 
-  const filteredVagas = vagas.filter((vaga) =>
-    vaga.titulo.toLowerCase().includes(searchParam.toLowerCase())
-  );
-
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true); 
       try {
         const response = await fetch(
-          `/api/vaga?page=${currentPage}&limit=${limit}`
+          `/api/vaga?page=${currentPage}&limit=${limit}${
+            searchParam ? `&search=${searchParam}` : ""
+          }`
         );
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error("Erro ao buscar os dados.");
         }
         const data = await response.json();
-        setVagas(data.data.vagas);
-        setCount(data.data.totalCount);
+        setVagas(data.data);
+        setCount(data.total); 
       } catch (error) {
-        console.error("Fetch error: ", error);
+        console.error("Erro na busca das vagas: ", error);
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [currentPage]);
-
+  }, [currentPage, searchParam]);
 
   return (
     <div className="mx-auto flex flex-col mb-24">
@@ -55,39 +53,26 @@ export default function Feed() {
           <div className="bg-white shadow-md p-4 rounded mb-4 w-full flex flex-col">
             {loading ? (
               <Spinner />
+            ) : vagas.length > 0 ? (
+              vagas.map((vaga) => <VagaCard key={vaga.id} vaga={vaga} />)
             ) : (
-              filteredVagas.map((vaga) => (
-                <VagaCard key={vaga.id} vaga={vaga} />
-              ))
+              <p className="text-center text-gray-600">Nenhuma vaga encontrada.</p>
             )}
-            <div className="flex justify-end w-full mt-4">
-              {currentPage > 1 ? (
-                <button
-                  className="bg-gray-200 text-gray-700 px-4 py-2 rounded mr-2"
-                  onClick={() => {
-                    setLoading(true);
-                    setCurrentPage((prev) => prev - 1);
-                  }}
-                  disabled={currentPage === 1}
-                >
-                  Anterior
-                </button>
-              ) : (
-                <></>
-              )}
-              {currentPage < count / limit ? (
-                <button
-                  className="bg-gray-200 text-gray-700 px-4 py-2 rounded"
-                  onClick={() => {
-                    setLoading(true);
-                    setCurrentPage((prev) => prev + 1);
-                  }}
-                >
-                  Próximo
-                </button>
-              ) : (
-                <></>
-              )}
+            <div className="flex justify-between w-full mt-4">
+              <button
+                className="bg-gray-200 text-gray-700 px-4 py-2 rounded"
+                onClick={() => setCurrentPage((prev) => prev - 1)}
+                disabled={currentPage === 1 || loading}
+              >
+                Anterior
+              </button>
+              <button
+                className="bg-gray-200 text-gray-700 px-4 py-2 rounded"
+                onClick={() => setCurrentPage((prev) => prev + 1)}
+                disabled={currentPage >= Math.ceil(count / limit) || loading}
+              >
+                Próximo
+              </button>
             </div>
           </div>
         </div>

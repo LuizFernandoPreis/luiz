@@ -14,13 +14,15 @@ export default async function Perfil() {
   return (
     <div className="min-h-screen flex flex-col">
       {user.data ? (
-        <HeroSection user={user.data}>
-          <ProfileInfo user={user.data} />
-        </HeroSection>
+        <>
+          <HeroSection user={user.data}>
+            <ProfileInfo user={user.data} />
+          </HeroSection>
+          <ProfileCurso />
+        </>
       ) : (
         <></>
       )}
-      <ProfileCurso />
     </div>
   );
 }

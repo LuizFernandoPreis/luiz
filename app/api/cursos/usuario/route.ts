@@ -37,7 +37,10 @@ export async function GET(request: NextRequest) {
         },
       });
 
-    return NextResponse.json(curso);
+      let data = await FavHandler(curso);
+
+
+    return NextResponse.json(data);
 }
 
 export async function POST(request: NextRequest) {

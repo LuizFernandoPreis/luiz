@@ -154,24 +154,18 @@ export default function UserUpdateModal({
             />
           </div>
           <div>
-            <label htmlFor="userPerfilImage" className="block text-sm font-medium mb-1">
-              Imagem de Perfil
-            </label>
             <input
               id="userPerfilImage"
               {...register("userPerfilImage")}
-              className="w-full p-2 rounded-md border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
+              className="w-full hidden p-2 rounded-md border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
           </div>
 
           <div>
-            <label htmlFor="userCapaImage" className="block text-sm font-medium mb-1">
-              Imagem de Capa
-            </label>
             <input
               id="userCapaImage"
               {...register("userCapaImage")}
-              className="w-full p-2 rounded-md border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
+              className="w-full hidden p-2 rounded-md border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
           </div>
           <div className="flex justify-end space-x-4">
