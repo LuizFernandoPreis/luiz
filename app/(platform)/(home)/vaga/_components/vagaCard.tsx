@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 export default function VagaCard({ vaga, isEmp }: { vaga: Vaga, isEmp: boolean}) {
   const { data: session } = useSession();
   const [nomeEmpresa, setNomeEmpresa] = useState("");
+  const [perfilImage, setPerfilImage] = useState("/icons/ifsc.jpg");
   const router = useRouter();
   
   useEffect(() => {
@@ -18,6 +19,10 @@ export default function VagaCard({ vaga, isEmp }: { vaga: Vaga, isEmp: boolean})
       const data = await fetch("/api/empresa?cnpj=" + vaga.empresaId);
       const empresa = await data.json();
       setNomeEmpresa(empresa.nome);
+
+      const userResponse = await fetch(`/api/usuario/images/?id=${empresa.usuarioId}`);
+        const user = await userResponse.json();
+        setPerfilImage(user.perfil || "/icons/ifsc.jpg");
     }
     fetchData();
   }, []);
@@ -35,7 +40,7 @@ export default function VagaCard({ vaga, isEmp }: { vaga: Vaga, isEmp: boolean})
       >
         <Image
           className="mr-4 max-h-[100px] "
-          src="/icons/ifsc.jpg"
+          src={perfilImage}
           alt="Logo"
           width={100}
           height={100}
