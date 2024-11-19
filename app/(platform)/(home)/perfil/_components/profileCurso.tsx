@@ -14,7 +14,7 @@ export default function ProfileCurso() {
   useEffect(() => {
 
     const fetchData = async ()=>{
-      const response = await fetch(`http://localhost:3000/api/cursos/usuario?id=${session.data?.user?.id}`);
+      const response = await fetch(`/api/cursos/usuario?id=${session.data?.user?.id}`);
       const data = await response.json();
 
       setCursoIds(data);
