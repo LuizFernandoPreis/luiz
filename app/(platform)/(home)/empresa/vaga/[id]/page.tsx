@@ -105,7 +105,7 @@ export default function EmpVagaPage({ params }: { params: { id: string } }) {
           Candidatos
         </h1>
         <div className="bg-white shadow-lg rounded-lg p-10">
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="flex-col flex-wrap gap-4 justify-center">
             {isLoading ? (
               <Spinner />
             ) : (

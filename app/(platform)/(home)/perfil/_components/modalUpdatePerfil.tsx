@@ -57,6 +57,7 @@ export default function ModalUpdatePerfilImage({
       // Update image URL in database
       await axios.put("/api/usuario/images", body);
       alert("Imagem de perfil atualizada com sucesso!");
+      window.location.reload();
       onClose();
     } catch (error) {
       console.error("Erro ao enviar imagem:", error);
