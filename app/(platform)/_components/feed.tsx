@@ -63,10 +63,10 @@ export default function Feed() {
             ) : (
               <p className="text-center text-gray-600">Nenhuma vaga encontrada.</p>
             )}
-            <div className="flex justify-between w-full mt-4">
+            <div className="flex justify-end gap-4 w-full mt-4">
               <button
                 className="bg-gray-200 text-gray-700 px-4 py-2 rounded"
-                onClick={() => setCurrentPage((prev) => prev - 1)}
+                onClick={() => setCurrentPage((prev) => prev - 1)}  
                 disabled={currentPage === 1 || loading}
               >
                 Anterior
