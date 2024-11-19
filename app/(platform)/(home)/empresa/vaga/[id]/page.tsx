@@ -110,7 +110,7 @@ export default function EmpVagaPage({ params }: { params: { id: string } }) {
               <Spinner />
             ) : (
               candidatos.map((candidato: any, index: number) => (
-                <div className="flex-1">
+                <div className="flex-1" key={index}>
                   <div
                     className="bg-white shadow-md p-4 rounded mb-4 w-full flex flex-col md:flex-row w-dvw-50 hover:bg-alternate cursor-pointer"
                     onClick={()=>{}}
