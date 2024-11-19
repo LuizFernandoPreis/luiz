@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { EyeIcon, EyeOffIcon, InfoIcon } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -41,8 +41,7 @@ export const LoginForm = () => {
       });
 
       if (res?.ok) {
-        window.location.reload();
-        router.push(dashboardRoute);
+        window.location.href = dashboardRoute;
       } else setWarn("E-mail ou senha incorretos.");
     } else setWarn("Preencha os campos corretamente.");
   };
