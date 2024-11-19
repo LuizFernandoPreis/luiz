@@ -17,7 +17,7 @@ export default function SearchBar() {
                     onChange={onChange}
                     type="text" 
                     placeholder="Busque por vagas..."
-                    className="w-full py-3 pl-10 pr-4 text-lg text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full py-3 pl-10 pr-4 text-lg text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-alternateDark"
                 />
                 <span className="absolute left-3 top-1/2 transform -translate-y-1/2">
                     <SearchIcon className="h-6 w-6 text-gray-500" />
