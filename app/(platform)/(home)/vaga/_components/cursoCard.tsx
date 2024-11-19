@@ -21,7 +21,6 @@ export default function VagaCard({ curso, vagaId, isEdit }: cardProps) {
       if (session) {
         const response = await fetch(`/api/cursos/vaga/?id=${vagaId}&cursoId=${curso.id}`);
         const res = await response.json();
-        console.log(res)
         if(res){
           setIsAdded(true);
         }

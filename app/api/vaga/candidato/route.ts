@@ -1,27 +1,24 @@
 import { action } from "@/actions";
 import { db } from "@/lib/db";
+import { count } from "console";
 import { NextRequest, NextResponse } from "next/server";
+import { getUsersByIdList } from "../helper";
 
 export async function GET(request: NextRequest) {
     const params = request.nextUrl.searchParams;
     let id = params.get("id");
     let vId = params.get("vagaId");
-    let qtd = params.get("qtd");
-
-    // Retorna a quantidade de candidatos para uma vaga
-    if(qtd && vId) {
-        const vagaId = parseInt(vId);
-        const candidato = await db.usuario_vaga.count({where:{vagaId: vagaId}});
-
-        return NextResponse.json(candidato);
-    }
 
     // Retorna todos os candidatos para uma vaga
     if (!id && vId) {
         const vagaId = parseInt(vId);
         const candidato = await db.usuario_vaga.findMany({where:{vagaId: vagaId}});
-
-        return NextResponse.json(candidato);
+        const qtdCandidato = await db.usuario_vaga.count({where:{vagaId: vagaId}});
+    
+        let candidatos = await getUsersByIdList(candidato);
+          
+        const data = {candidatos, qtdCandidato};
+        return NextResponse.json(data);
     }
 
     // Retorna se está candidatado a uma vaga especifica
@@ -35,7 +32,6 @@ export async function GET(request: NextRequest) {
               ],
             },
           });
-          
 
         return NextResponse.json(vaga);
     }

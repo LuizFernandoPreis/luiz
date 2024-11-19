@@ -2,17 +2,6 @@ import Curso from "@/app/(platform)/(home)/cursos/types/cursoType";
 
 type FavHandler = { cursoId: number }[];
 
-export default async function FavHandler(ids: FavHandler) {
-  const listaCurso: Curso[] = [];
-
-  for (let i = 0; i < ids.length; i++) {
-    const curso = await getCurso(ids[i].cursoId);
-    listaCurso.push(curso);
-  }
-
-  return listaCurso;
-}
-
 async function getCurso(id: number) {
   const response = await fetch(
     `https://www.udemy.com/api-2.0/courses/${id}`,
@@ -28,4 +17,15 @@ async function getCurso(id: number) {
 
   const data = await response.json();
   return data;
+}
+
+export default async function FavHandler(ids: FavHandler) {
+  const listaCurso: Curso[] = [];
+
+  for (let i = 0; i < ids.length; i++) {
+    const curso = await getCurso(ids[i].cursoId);
+    listaCurso.push(curso);
+  }
+
+  return listaCurso;
 }
