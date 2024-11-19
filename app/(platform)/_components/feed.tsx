@@ -8,27 +8,32 @@ import { Vaga } from "@prisma/client";
 
 export default function Feed() {
   const [loading, setLoading] = useState(false);
-  const { searchParam } = useApp(); 
-  const [vagas, setVagas] = useState<Vaga[]>([]);
-  const [count, setCount] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-  const limit = 5;
+  const { searchParam, tagSearch } = useApp(); // Contém os parâmetros de busca (tags selecionadas)
+  const [vagas, setVagas] = useState<Vaga[]>([]); // Vagas retornadas
+  const [count, setCount] = useState(0); // Total de vagas retornadas
+  const [currentPage, setCurrentPage] = useState(1); // Página atual
+  const limit = 5; // Limite de vagas por página
 
+  // Atualiza os dados ao mudar de página ou ao alterar as tags de busca
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true); 
+      setLoading(true);
       try {
-        const response = await fetch(
-          `/api/vaga?page=${currentPage}&limit=${limit}${
-            searchParam ? `&search=${searchParam}` : ""
-          }`
-        );
+        const queryString = new URLSearchParams({
+          page: String(currentPage),
+          limit: String(limit),
+          ...(tagSearch ? Object.fromEntries(new URLSearchParams(tagSearch)) : {}),
+          search: searchParam,
+        }).toString();
+
+        const response = await fetch(`/api/vaga?${queryString}`);
         if (!response.ok) {
           throw new Error("Erro ao buscar os dados.");
         }
         const data = await response.json();
-        setVagas(data.data);
-        setCount(data.total); 
+
+        setVagas(data.data);  // Vagas retornadas
+        setCount(data.total); // Total de vagas retornadas
       } catch (error) {
         console.error("Erro na busca das vagas: ", error);
       } finally {
@@ -37,7 +42,7 @@ export default function Feed() {
     };
 
     fetchData();
-  }, [currentPage, searchParam]);
+  }, [currentPage, searchParam, tagSearch]); // Atualiza ao mudar de página ou ao alterar as tags de busca
 
   return (
     <div className="mx-auto flex flex-col mb-24">

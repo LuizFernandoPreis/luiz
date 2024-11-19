@@ -29,10 +29,6 @@ export default function VagaCard({ vaga }: { vaga: Vaga }) {
         const empresaResponse = await fetch(`/api/empresa?cnpj=${vaga.empresaId}`);
         const empresa = await empresaResponse.json();
         setNomeEmpresa(empresa.nome);
-
-        const userResponse = await fetch(`/api/usuario/images/?id=${empresa.usuarioId}`);
-        const user = await userResponse.json();
-        setPerfilImage(user.perfil || "/icons/ifsc.jpg");
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -40,6 +36,7 @@ export default function VagaCard({ vaga }: { vaga: Vaga }) {
     fetchData();
   }, [vaga.empresaId]); 
 
+  
   return (
     <div className="flex-1">
       <div
@@ -49,7 +46,7 @@ export default function VagaCard({ vaga }: { vaga: Vaga }) {
       >
         <Image
           className="mr-4 max-h-[100px]"
-          src={perfilImage}
+          src={vaga.empImage}
           alt="User Profile Image"
           width={100}
           height={100}

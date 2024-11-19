@@ -1,44 +1,50 @@
 "use client";
 
 import { useState } from "react";
+import { useApp } from "../contexts/ctxHome";
 
 export default function TagSearch() {
-  // Estado para armazenar as tags selecionadas
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const { setTagSearch } = useApp();
 
-  // Função para lidar com o clique e seleção
-  const handleClick: React.MouseEventHandler<HTMLParagraphElement> = (
-    event
-  ) => {
-    const clickedTag = event.currentTarget.textContent || "";
+  // Estado para armazenar as tags selecionadas para cada categoria
+  const [selectedTags, setSelectedTags] = useState({
+    contrato: "",
+    modalidade: "",
+    senioridade: "",
+  });
 
-    // Adiciona ou remove a tag do array de tags selecionadas
-    setSelectedTags((prevSelectedTags) =>
-      prevSelectedTags.includes(clickedTag)
-        ? prevSelectedTags.filter((tag) => tag !== clickedTag)
-        : [...prevSelectedTags, clickedTag]
-    );
+  // Listas de tags para cada categoria
+  const contratoTags = ["PJ", "CLT", "Estágio"];
+  const modalidadeTags = ["Presencial", "Híbrido", "Remoto"];
+  const senioridadeTags = ["Trainee", "Estágio", "Junior", "Pleno", "Senior"];
+
+  // Atualiza as tags selecionadas e notifica o contexto
+  const handleClick = (category: keyof typeof selectedTags, tag: string) => {
+    setSelectedTags((prevSelectedTags) => {
+      const updatedTags = { ...prevSelectedTags, [category]: tag === prevSelectedTags[category] ? "" : tag };
+
+      // Atualiza o estado global com os filtros ativos
+      const params = new URLSearchParams();
+      if (updatedTags.contrato) params.append("contratacao", updatedTags.contrato);
+      if (updatedTags.modalidade) params.append("modalidade", updatedTags.modalidade);
+      if (updatedTags.senioridade) params.append("senioridade", updatedTags.senioridade);
+
+      setTagSearch(params.toString());
+      return updatedTags;
+    });
   };
 
-  const contratoTag = ["PJ", "CLT", "Estágio"];
-  const modalidateTag = ["Presencial", "Híbrido", "Remoto"];
-  const SenioridadeTag = ["Trainee", "Estágio", "Junior", "Pleno", "Senior"];
-
-  const renderTags = (tags: string[]) => {
+  // Função genérica para renderizar tags de uma categoria
+  const renderTags = (tags: string[], category: keyof typeof selectedTags) => {
     return tags.map((tag, i) => (
       <div
-        className={`shadow-md rounded w-max px-1 mt-2 flex align-center justify-center ${
-          selectedTags.includes(tag) ? "bg-alternate" : "bg-mercury"
-        } hover:bg-alternate`}
+        className={`shadow-md rounded w-max px-2 py-1 mt-2 flex align-center justify-center cursor-pointer ${
+          selectedTags[category] === tag ? "bg-alternate text-white" : "bg-mercury text-gray-700"
+        } hover:bg-alternate hover:text-white`}
         key={i}
+        onClick={() => handleClick(category, tag)}
       >
-        <p
-          className="text-gray-700 cursor-pointer"
-          id={String(i)}
-          onClick={handleClick}
-        >
-          {tag}
-        </p>
+        <p>{tag}</p>
       </div>
     ));
   };
@@ -48,15 +54,11 @@ export default function TagSearch() {
       <h2 className="text-2xl font-bold mb-4">Tags de Busca</h2>
       <div className="bg-white shadow-md p-4 rounded">
         <h3 className="font-semibold">Tipo de Contrato</h3>
-        <div className="flex flex-row gap-4">{renderTags(contratoTag)}</div>
+        <div className="flex flex-row gap-4">{renderTags(contratoTags, "contrato")}</div>
         <h3 className="font-semibold mt-8">Modalidade</h3>
-        <div className="flex flex-wrap gap-4">
-          {renderTags(modalidateTag)}
-        </div>
+        <div className="flex flex-wrap gap-4">{renderTags(modalidadeTags, "modalidade")}</div>
         <h3 className="font-semibold mt-8">Senioridade</h3>
-        <div className="flex flex-wrap gap-4">
-          {renderTags(SenioridadeTag)}
-        </div>
+        <div className="flex flex-wrap gap-4">{renderTags(senioridadeTags, "senioridade")}</div>
       </div>
     </div>
   );

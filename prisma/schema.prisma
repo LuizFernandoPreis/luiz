@@ -61,6 +61,7 @@ model Vaga {
   contatacao  String
   descricao   String 
   salario     String @default("A combinar")
+  empImage    String @default("https://res.cloudinary.com/dx9n8tsyu/image/upload/v1633660134/empresas/empresa-default-image.png")
 
   Empresa   Empresa @relation("EmpId", fields: [empresaId], references: [cnpj])
   empresaId String
