@@ -17,8 +17,6 @@ export default function VagaForm() {
     empresaId: "",
     requisitos: "",
     salario: "A combinar",
-    empImage: "",
-    empCapaImage: "",
   });
 
   const handleChange = (e: { target: { name: any; value: any } }) => {
@@ -28,10 +26,6 @@ export default function VagaForm() {
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-
-    formData.empImage = session?.data?.user?.image || "";
-    formData.empCapaImage = session?.data?.user?.capaImage || "";
-
     const data = await fetch("/api/vaga", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -88,8 +82,6 @@ export default function VagaForm() {
               />
             </div>
           </div>
-
-          
 
           <div className="flex gap-4">
             <div className="flex flex-col gap-2 w-2/3">

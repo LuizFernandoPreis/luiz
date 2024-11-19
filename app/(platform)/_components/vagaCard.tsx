@@ -1,4 +1,5 @@
 "use client";
+
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import {
@@ -16,7 +17,6 @@ import { useEffect, useState } from "react";
 export default function VagaCard({ vaga }: { vaga: Vaga }) {
   const { data: session } = useSession();
   const [nomeEmpresa, setNomeEmpresa] = useState("");
-  const [perfilImage, setPerfilImage] = useState("/icons/ifsc.jpg");
   const router = useRouter();
 
   const handleClick: React.MouseEventHandler<HTMLDivElement> = () => {
@@ -29,14 +29,15 @@ export default function VagaCard({ vaga }: { vaga: Vaga }) {
         const empresaResponse = await fetch(`/api/empresa?cnpj=${vaga.empresaId}`);
         const empresa = await empresaResponse.json();
         setNomeEmpresa(empresa.nome);
+        console.log("Empresa Image:", vaga.empImage); // Para debug
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching empresa data:", error);
       }
     };
-    fetchData();
-  }, [vaga.empresaId]); 
 
-  
+    fetchData();
+  }, [vaga.empresaId]);
+
   return (
     <div className="flex-1">
       <div
@@ -46,8 +47,8 @@ export default function VagaCard({ vaga }: { vaga: Vaga }) {
       >
         <Image
           className="mr-4 max-h-[100px]"
-          src={vaga.empImage}
-          alt="User Profile Image"
+          src={vaga.empImage + `?cache-buster=${Date.now()}`}
+          alt="Empresa Profile Image"
           width={100}
           height={100}
           priority
@@ -55,22 +56,22 @@ export default function VagaCard({ vaga }: { vaga: Vaga }) {
         <div className="flex flex-col justify-between max-w-full">
           <h3 className="font-semibold truncate">{vaga.titulo}</h3>
           <div className="flex flex-wrap gap-4 text-gray-700">
-            <p className="flex">
+            <p className="flex items-center gap-2">
               <Building /> Empresa: {nomeEmpresa}
             </p>
-            <p className="flex">
+            <p className="flex items-center gap-2">
               <Pin /> Local: {vaga.local}
             </p>
-            <p className="flex">
+            <p className="flex items-center gap-2">
               <Hammer /> Modalidade: {vaga.modalidade}
             </p>
-            <p className="flex">
+            <p className="flex items-center gap-2">
               <ChartBar /> Senioridade: {vaga.senioridade}
             </p>
-            <p className="flex">
+            <p className="flex items-center gap-2">
               <Scroll /> Contratação: {vaga.contatacao}
             </p>
-            <p className="flex">
+            <p className="flex items-center gap-2">
               <HandCoins /> Salário: {vaga.salario}
             </p>
           </div>

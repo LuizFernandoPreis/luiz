@@ -18,7 +18,7 @@ export default function HeroSection({ children, user }: HeroProps) {
   return (
     <div className="relative isolate overflow-hidden bg-gray-900 sm:py-32 min-h-[300px]">
       <Image
-        src={backgroundImage}
+        src={backgroundImage + `?cache-buster=${Date.now()}`}
         alt="Capa do usuário"
         layout="fill"
         objectFit="cover"

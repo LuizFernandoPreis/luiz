@@ -59,3 +59,29 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.json({ data, total, page, limit });
 }
+
+export async function PUT(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const { empresaId, ...data } = body;
+
+    // Atualiza todas as vagas que pertencem à empresa com o ID especificado
+    const result = await db.vaga.updateMany({
+      where: { empresaId },
+      data,
+    });
+
+    // Retorna uma resposta indicando sucesso
+    return NextResponse.json({
+      message: "Vagas atualizadas com sucesso!",
+      updatedCount: result.count, // Número de registros atualizados
+    });
+  } catch (error) {
+    console.error("Erro ao atualizar as vagas:", error);
+
+    return NextResponse.json(
+      { message: "Erro ao atualizar as vagas", error },
+      { status: 500 }
+    );
+  }
+}

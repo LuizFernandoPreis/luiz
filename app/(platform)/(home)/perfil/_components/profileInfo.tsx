@@ -21,7 +21,7 @@ export default function ProfileInfo({ user }: { user: Usuario }) {
           <Image
             src={
               user.userPerfilImage
-                ? user.userPerfilImage
+                ? user.userPerfilImage + `?cache-buster=${Date.now()}`
                 : "/icons/userPlaceHolder.jpeg"
             }
             alt="Imagem de Perfil"
@@ -58,14 +58,6 @@ export default function ProfileInfo({ user }: { user: Usuario }) {
           <p className="text-md text-start overflow-auto">{user.sobre}</p>
         </div>
       </div>
-
-      {isModalCapaOpen && (
-        <ModalUpdatePerfilImage
-          userId={user.id}
-          isOpen={isModalCapaOpen}
-          onClose={() => setIsModalCapaOpen(false)} 
-        />
-      )}
 
       {isModalImageOpen && (
         <ModalUpdatePerfilImage

@@ -54,7 +54,7 @@ export default function Page({ params }: { params: { id: string } }) {
   
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
-      {empresa && <HeroSection empresa={empresa} />}
+      {empresa && <HeroSection empresa={empresa} perfilImage={vaga?.empImage} capaImage={vaga?.empCapaImage}/>}
       <div className="container mx-auto px-4 pb-4 md:px-16 pt-8">
         <h1 className="text-center text-3xl font-semibold text-gray-800 mb-8">
           {vaga?.titulo}

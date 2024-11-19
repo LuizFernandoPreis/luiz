@@ -59,7 +59,7 @@ export default function EmpVagaPage({ params }: { params: { id: string } }){
   
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
-      {empresa && <HeroSection empresa={empresa} />}
+      {empresa && <HeroSection capaImage={vaga?.empCapaImage} perfilImage={vaga?.empImage} empresa={empresa} />}
       <div className="container mx-auto px-4 pb-4 md:px-16 pt-8">
         <h1 className="text-center text-3xl font-semibold text-gray-800 mb-8">
           {vaga?.titulo}

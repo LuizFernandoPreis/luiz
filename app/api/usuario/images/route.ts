@@ -23,19 +23,31 @@ export async function PUT(request: NextRequest) {
     }
 
     if (body.local !== "capa") {
+      // Atualiza a imagem de perfil
       updatedUser = await db.usuario.update({
         where: { id: String(body.id) },
         data: {
           userPerfilImage: body.url,
         },
       });
+
+      // Atualiza a imagem de perfil das vagas da empresa
+      const empresa = await db.empresa.findFirst({where: {usuarioId: body.id}});
+
+      if(empresa) await db.vaga.updateMany({where: {empresaId: empresa.cnpj}, data: {empImage: body.url}});
     } else {
+      // Atualiza a imagem de capa
       updatedUser = await db.usuario.update({
         where: { id: String(body.id) },
         data: {
           userCapaImage: body.url,
         },
       });
+
+      // Atualiza a imagem de capa das vagas da empresa
+      const empresa = await db.empresa.findFirst({where: {usuarioId: body.id}});
+
+      if(empresa) await db.vaga.updateMany({where: {empresaId: empresa.cnpj}, data: {empCapaImage: body.url}});
     }
 
     return NextResponse.json(updatedUser, { status: 200 });
