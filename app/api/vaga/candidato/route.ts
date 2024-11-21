@@ -8,6 +8,16 @@ export async function GET(request: NextRequest) {
     const params = request.nextUrl.searchParams;
     let id = params.get("id");
     let vId = params.get("vagaId");
+    let uId = params.get("usuarioId");
+
+    if (uId) {
+        const usuarioId = [{id: 0,userId: uId, vagaId: 0}]; // id: 0, vagaId: 0 são valores ficticios
+        let candidato = await getUsersByIdList(usuarioId);
+          
+        const data = { candidato};
+        return NextResponse.json(data.candidato[0]);
+    }
+    
 
     // Retorna todos os candidatos para uma vaga
     if (!id && vId) {
