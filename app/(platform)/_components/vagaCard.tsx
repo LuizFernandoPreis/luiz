@@ -45,13 +45,12 @@ export default function VagaCard({ vaga }: { vaga: Vaga }) {
         onClick={handleClick}
         id={String(vaga.id)}
       >
-        <Image
+        <img
           className="mr-4 max-h-[100px]"
           src={vaga.empImage + `?cache-buster=${Date.now()}`}
           alt="Empresa Profile Image"
           width={100}
           height={100}
-          priority
         />
         <div className="flex flex-col justify-between max-w-full">
           <h3 className="font-semibold truncate">{vaga.titulo}</h3>
