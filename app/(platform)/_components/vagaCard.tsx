@@ -45,7 +45,7 @@ export default function VagaCard({ vaga }: { vaga: Vaga }) {
         onClick={handleClick}
         id={String(vaga.id)}
       >
-        <img
+        <Image
           className="mr-4 max-h-[100px]"
           src={vaga.empImage + `?cache-buster=${Date.now()}`}
           alt="Empresa Profile Image"
