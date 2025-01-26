@@ -91,8 +91,8 @@ export default function VagaForm() {
 
           
 
-          <div className="flex gap-4">
-            <div className="flex flex-col gap-2 w-2/3">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex flex-col gap-2 md:w-2/3">
               <textarea
                 id="requisitos"
                 name="requisitos"
@@ -103,7 +103,7 @@ export default function VagaForm() {
                 required
               />
             </div>
-            <div className="flex flex-col w-1/3 gap-4">
+            <div className="flex flex-col md:w-1/3 gap-4">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="flex flex-col gap-2">
                   <select

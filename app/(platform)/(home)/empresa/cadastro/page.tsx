@@ -52,7 +52,7 @@ export default function EmpresaForm() {
         throw new Error("Erro ao atualizar papel do usuário.");
       }
       
-      window.location.reload();
+      window.location.href = '/perfil';
       reset();
       router.push("/perfil");
     } catch (error) {
