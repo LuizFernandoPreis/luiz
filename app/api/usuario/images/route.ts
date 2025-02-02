@@ -3,14 +3,9 @@ import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import FormData from "form-data";
 import fetch from "node-fetch";
-import https from "https";
-
-const httpsAgent = new https.Agent({
-  rejectUnauthorized: false, // Ignora certificados autoassinados
-});
 
 export async function PUT(request: NextRequest) {
-  let updatedUser;
+    let updatedUser;
   try {
     const body = await request.json();
     if (!body.id) {
@@ -37,9 +32,9 @@ export async function PUT(request: NextRequest) {
       });
 
       // Atualiza a imagem de perfil das vagas da empresa
-      const empresa = await db.empresa.findFirst({ where: { usuarioId: body.id } });
+      const empresa = await db.empresa.findFirst({where: {usuarioId: body.id}});
 
-      if (empresa) await db.vaga.updateMany({ where: { empresaId: empresa.cnpj }, data: { empImage: body.url } });
+      if(empresa) await db.vaga.updateMany({where: {empresaId: empresa.cnpj}, data: {empImage: body.url}});
     } else {
       // Atualiza a imagem de capa
       updatedUser = await db.usuario.update({
@@ -50,9 +45,9 @@ export async function PUT(request: NextRequest) {
       });
 
       // Atualiza a imagem de capa das vagas da empresa
-      const empresa = await db.empresa.findFirst({ where: { usuarioId: body.id } });
+      const empresa = await db.empresa.findFirst({where: {usuarioId: body.id}});
 
-      if (empresa) await db.vaga.updateMany({ where: { empresaId: empresa.cnpj }, data: { empCapaImage: body.url } });
+      if(empresa) await db.vaga.updateMany({where: {empresaId: empresa.cnpj}, data: {empCapaImage: body.url}});
     }
 
     return NextResponse.json(updatedUser, { status: 200 });
@@ -109,11 +104,10 @@ export async function POST(request: NextRequest) {
     });
 
     // Envia a imagem para a API Express com os parâmetros 'id' e 'dest'
-    const response = await fetch(`https://92.113.34.132:3030/upload/${userId}/${dest}`, {
+    const response = await fetch(`https://images-qciu.onrender.com/upload/${userId}/${dest}`, {
       method: "POST",
       body: backendFormData,
       headers: backendFormData.getHeaders(), // Necessário para 'form-data'
-      agent: httpsAgent, // Usa o agente HTTPS configurado
     });
 
     // Verifica se a resposta da API Express foi bem-sucedida
@@ -137,18 +131,18 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
-  const param = request.nextUrl.searchParams;
-  const id = param.get("id");
+  const param = request.nextUrl.searchParams
+  const id = param.get("id")
 
-  if (!id) return NextResponse.json({ message: "É necessário passar o id!" });
+  if(!id) return NextResponse.json({ message: "É necessário passar o id!" });
 
-  try {
-    const user = await db.usuario.findFirst({ where: { id } });
+  try{
+    const user = await db.usuario.findFirst({where: {id}});
+    
+    if(!user) return NextResponse.json({ message: "Usuário não encontrado" });
 
-    if (!user) return NextResponse.json({ message: "Usuário não encontrado" });
-
-    return NextResponse.json({ perfil: user.userPerfilImage, capa: user.userCapaImage });
-  } catch (err) {
-    return NextResponse.json({ error: err });
+    return NextResponse.json({perfil: user.userPerfilImage, capa: user.userCapaImage});
+  }catch(err){
+    return NextResponse.json({error: err})
   }
 }

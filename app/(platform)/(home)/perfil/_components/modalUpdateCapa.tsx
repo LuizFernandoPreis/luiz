@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-const URLBASE = 'https://92.113.34.132:3030';
+const URLBASE = 'https://images-qciu.onrender.com';
 
 interface UserUpdateModalProps {
   userId: string;

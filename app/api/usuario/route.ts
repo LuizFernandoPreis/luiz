@@ -7,7 +7,6 @@ export async function GET(request: NextRequest) {
     // Obtém os parâmetros de busca da URL
     const id = request.nextUrl.searchParams.get("id");
 
-    console.log(id)
     if (!id) {
       return NextResponse.json({ error: "ID de usuário não fornecido" }, { status: 400 });
     }
@@ -16,8 +15,6 @@ export async function GET(request: NextRequest) {
     const user = await action.usuario().find({
       where: { id: id },
     });
-
-    console.log(user)
 
     if (!user) {
       return NextResponse.json({ error: "Usuário não encontrado" }, { status: 404 });

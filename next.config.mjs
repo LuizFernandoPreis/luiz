@@ -6,7 +6,8 @@ const nextConfig = {
       "img-b.udemycdn.com", 
       "t3.ftcdn.net", 
       "localhost",
-      "92.113.34.132"
+      "92.113.34.132",
+      "https://images-qciu.onrender.com/"
     ], // Domínios permitidos
     unoptimized: true,  // Desativa a otimização de imagens
   },
