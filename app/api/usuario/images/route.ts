@@ -1,4 +1,3 @@
-import { action } from "@/actions";
 import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import FormData from "form-data";
@@ -138,7 +137,7 @@ export async function GET(request: NextRequest) {
 
   try{
     const user = await db.usuario.findFirst({where: {id}});
-    
+
     if(!user) return NextResponse.json({ message: "Usuário não encontrado" });
 
     return NextResponse.json({perfil: user.userPerfilImage, capa: user.userCapaImage});

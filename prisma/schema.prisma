@@ -61,8 +61,8 @@ model Vaga {
   contatacao  String
   descricao   String 
   salario     String @default("A combinar")
-  empImage    String @default("https://92.113.34.132:3030/upload/57b34340-9a4d-4246-a045-e54453e40c2a/perfil/57b34340-9a4d-4246-a045-e54453e40c2a.png")
-  empCapaImage String @default("https://92.113.34.132:3030/upload/57b34340-9a4d-4246-a045-e54453e40c2a/capa/57b34340-9a4d-4246-a045-e54453e40c2a.jpg")
+  empImage    String @default("https://images-qciu.onrender.com/upload/c70d9d32-00d1-4a6c-a563-54cb0a0565dd/perfil/c70d9d32-00d1-4a6c-a563-54cb0a0565dd.png")
+  empCapaImage String @default("https://images-qciu.onrender.com/upload/c70d9d32-00d1-4a6c-a563-54cb0a0565dd/capa/c70d9d32-00d1-4a6c-a563-54cb0a0565dd.jpg")
  
   Empresa   Empresa @relation("EmpId", fields: [empresaId], references: [cnpj])
   empresaId String

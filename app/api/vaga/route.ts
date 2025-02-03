@@ -74,7 +74,7 @@ export async function PUT(request: NextRequest) {
     // Retorna uma resposta indicando sucesso
     return NextResponse.json({
       message: "Vagas atualizadas com sucesso!",
-      updatedCount: result.count, // Número de registros atualizados
+      updatedCount: result.count, 
     });
   } catch (error) {
     console.error("Erro ao atualizar as vagas:", error);

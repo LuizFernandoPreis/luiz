@@ -29,7 +29,7 @@ export default function VagaCard({ vaga }: { vaga: Vaga }) {
         const empresaResponse = await fetch(`/api/empresa?cnpj=${vaga.empresaId}`);
         const empresa = await empresaResponse.json();
         setNomeEmpresa(empresa.nome);
-        console.log("Empresa Image:", vaga.empImage); // Para debug
+        console.log("Empresa Image:", vaga.empImage); 
       } catch (error) {
         console.error("Error fetching empresa data:", error);
       }

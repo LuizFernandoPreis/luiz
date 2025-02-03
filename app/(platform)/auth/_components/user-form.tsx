@@ -11,7 +11,7 @@ import { dashboardRoute } from '@/lib/routes'
 import { cn } from '@/lib/utlis'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Usuario } from '@prisma/client'
-import { ArrowLeftCircleIcon } from 'lucide-react'
+import { ArrowLeftCircleIcon, EyeIcon, EyeOffIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -26,6 +26,7 @@ export const UserForm = ({ user }: { user?: Usuario }) => {
   const router = useRouter()
 
   const [warn, setWarn] = useState<string>()
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     handleSubmit,
@@ -155,10 +156,11 @@ export const UserForm = ({ user }: { user?: Usuario }) => {
           <input
             {...register('novaSenha')}
             id="novaSenha"
-            type="text"
+            type={showPassword ? "text" : "password"}
             className="rounded bg-alternate/20 p-2"
             disabled={loading}
           />
+
           {(errors as _FieldErrors).novaSenha && (
             <span className="text-sm">
               {(errors as _FieldErrors).novaSenha?.message}
@@ -176,7 +178,7 @@ export const UserForm = ({ user }: { user?: Usuario }) => {
           <input
             {...register('senha')}
             id="senha"
-            type="text"
+            type={showPassword ? "text" : "password"}
             className="rounded bg-alternate/20 p-2"
             disabled={loading}
           />
