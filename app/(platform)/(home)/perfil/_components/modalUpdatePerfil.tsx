@@ -36,7 +36,7 @@ export default function ModalUpdatePerfilImage({
     setLoading(true);
     const formData = new FormData();
     formData.append("image", capaImage);
-    formData.append("id", userId); 
+    formData.append("id", userId);
     formData.append("dest", "perfil");
 
     try {
@@ -54,7 +54,6 @@ export default function ModalUpdatePerfilImage({
         local: "perfil",
       };
 
-      // Update image URL in database
       await axios.put("/api/usuario/images", body);
       alert("Imagem de perfil atualizada com sucesso!");
       window.location.reload();
@@ -70,10 +69,13 @@ export default function ModalUpdatePerfilImage({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="w-[90%] md:w-2/3 lg:w-1/2 bg-white rounded-lg shadow-lg p-12 mt-32 overflow-auto max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+      <div className="relative w-[90%] md:w-2/3 lg:w-1/2 bg-white rounded-lg shadow-xl p-12 max-h-[90vh] overflow-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-semibold">Atualizar Imagem de Perfil</h2>
+          <button onClick={onClose} className="text-gray-600 hover:text-red-500">
+            ✕
+          </button>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -100,7 +102,7 @@ export default function ModalUpdatePerfilImage({
             </button>
             <button
               type="submit"
-              className="px-4 py-2 rounded-md bg-alternate text-white hover:bg-alternateDark transition"
+              className="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition"
               disabled={loading}
             >
               {loading ? "Atualizando..." : "Atualizar"}

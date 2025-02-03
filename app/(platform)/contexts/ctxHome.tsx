@@ -14,6 +14,8 @@ interface AppContextType {
   setSearchCursoPara: (value: string) => void;
   tagSearch: string;
   setTagSearch: (value: string) => void;
+  isUpdate: boolean;
+  setIsUpdate: (value: boolean) => void;
 }
 
 export const AppContext = createContext<AppContextType | null>(null);
@@ -28,6 +30,7 @@ export function AppWrapper({ children }: AppWrapperProps) {
   const [searchParam, setSearchParam] = useState("");
   const [searchCursoParam, setSearchCursoPara] = useState("");
   const [tagSearch, setTagSearch] = useState("");
+  const [isUpdate, setIsUpdate] = useState(false);
 
   return (
     <AppContext.Provider
@@ -42,6 +45,8 @@ export function AppWrapper({ children }: AppWrapperProps) {
         setSearchCursoPara,
         tagSearch,
         setTagSearch,
+        isUpdate,
+        setIsUpdate
       }}
     >
       {children}

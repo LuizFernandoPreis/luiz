@@ -4,6 +4,7 @@ import { Usuario } from "@prisma/client";
 import { useState } from "react";
 import Image from "next/image";
 import ModalUpdateCapaImage from "./modalUpdateCapa";
+import { useApp } from "@/app/(platform)/contexts/ctxHome";
 
 type HeroProps = {
   children: React.ReactNode;
@@ -12,7 +13,7 @@ type HeroProps = {
 
 export default function HeroSection({ children, user }: HeroProps) {
   const [isModalCapaOpen, setIsModalCapaOpen] = useState(false);
-
+  const { setIsUpdate } = useApp();
   const backgroundImage = user.userCapaImage || "/icons/capaPlaceholder.png";
 
   return (
@@ -24,14 +25,20 @@ export default function HeroSection({ children, user }: HeroProps) {
         objectFit="cover"
         objectPosition="center"
         className="absolute inset-0 -z-20 opacity-50"
-        onClick={() => setIsModalCapaOpen(true)}
-        priority 
+        onClick={() => {
+          setIsModalCapaOpen(true);
+          setIsUpdate(true);
+        }}
+        priority
       />
       {isModalCapaOpen && (
         <ModalUpdateCapaImage
           userId={user.id}
           isOpen={isModalCapaOpen}
-          onClose={() => setIsModalCapaOpen(false)}
+          onClose={() => {
+            setIsModalCapaOpen(false);
+            setIsUpdate(false);
+          }}
         />
       )}
 

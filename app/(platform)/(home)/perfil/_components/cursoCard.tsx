@@ -7,17 +7,17 @@ import { useEffect, useState } from "react";
 import Curso from "../../cursos/types/cursoType";
 
 type cardProps = {
-    curso: Curso,
-    isEdit: boolean
-}
+  curso: Curso;
+  isEdit: boolean;
+};
+
 export default function VagaCard({ curso, isEdit }: cardProps) {
   const { data: session } = useSession();
   const [isAdded, setIsAdded] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    const fetchAdded = async () => {
-    };
+    const fetchAdded = async () => {};
     fetchAdded();
   }, []);
 
@@ -33,9 +33,12 @@ export default function VagaCard({ curso, isEdit }: cardProps) {
 
   const handleFavorite: React.MouseEventHandler<HTMLSpanElement> = async () => {
     if (session) {
-      if(!isAdded){
+      if (!isAdded) {
         setIsAdded(!isAdded);
-        const response = await fetch(`/api/cursos`, {method:'POST', body: JSON.stringify({id: curso.id})});
+        await fetch(`/api/cursos`, {
+          method: "POST",
+          body: JSON.stringify({ id: curso.id }),
+        });
         return;
       }
       setIsAdded(!isAdded);
@@ -45,14 +48,18 @@ export default function VagaCard({ curso, isEdit }: cardProps) {
   };
 
   return (
-    <div className="flex w-60 h-80 shadow-md rounded-md p-0.5 transition-transform duration-300 hover:scale-105 cursor-pointer">
-      <div className="bg-mercury w-full h-40 rounded relative p-0.5" onClick={handleClick}>
-        <div className="h-full w-full">
+    <div className="relative flex w-60 h-80 shadow-md rounded-md p-0.5 transition-transform duration-300 hover:scale-105 cursor-pointer">
+      <div
+        className="z-0 w-full h-40 rounded relative p-0.5"
+      >
+        <div className="h-full relative  w-full">
           <Image
             src={`${curso.image_480x270}`}
             alt="Hero Image"
-            fill
-            className="object-cover rounded"
+            layout="fill"
+            objectFit="cover"
+            objectPosition="center"
+            className="absolute inset-0"
           />
         </div>
         <div className="p-2 flex flex-col h-full justify-between">
@@ -66,24 +73,24 @@ export default function VagaCard({ curso, isEdit }: cardProps) {
           <div className="mt-auto flex justify-end">
             <a
               href={`https://www.udemy.com${curso.url}`}
-              className="bg-mercury p-2 w-2/3 rounded-lg hover:bg-alternate text-center"
+              className="shadow-md p-2 w-2/3 rounded-lg hover:bg-alternate text-center"
             >
               Visitar
             </a>
           </div>
         </div>
       </div>
-      {
-        isEdit ? <span
-        className={`flex p-1 right-2 top-2 ${
-          isAdded ? "bg-yellow-100" : "bg-white"
-        } rounded-lg absolute hover:bg-yellow-100`}
-        onClick={handleFavorite}
-      >
-        <CirclePlus />
-      </span> : <></>
-      }
-      
+      {isEdit && (
+        <span
+          className={`absolute top-2 right-2 flex p-1 rounded-lg transition-all ${
+            isAdded ? "bg-yellow-100" : "bg-white"
+          } hover:bg-yellow-100 shadow-md`}
+          onClick={handleFavorite}
+          style={{ zIndex: 5 }}
+        >
+          <CirclePlus />
+        </span>
+      )}
     </div>
   );
 }

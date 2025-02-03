@@ -5,17 +5,20 @@ import Image from "next/image";
 import { useState } from "react";
 import UserUpdateModal from "./userUpdateModal";
 import ModalUpdatePerfilImage from "./modalUpdatePerfil";
+import { useApp } from "@/app/(platform)/contexts/ctxHome";
 
 export default function ProfileInfo({ user }: { user: Usuario }) {
-  const [isModalOpen, setIsModalOpen] = useState(false); 
-  const [isModalImageOpen, setIsModalImageOpen] = useState(false); 
-  const [isModalCapaOpen, setIsModalCapaOpen] = useState(false);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalImageOpen, setIsModalImageOpen] = useState(false);
+  const { setIsUpdate } = useApp();
   return (
     <div className="flex flex-col md:flex-row w-full gap-16 p-4 md:p-0 align-center justify-center">
       <div
         className="bg-mercury w-full h-60 md:h-60 md:w-1/4 p-2 rounded cursor-pointer"
-        onClick={() => setIsModalImageOpen(true)}
+        onClick={() => {
+          setIsModalImageOpen(true);
+          setIsUpdate(true);
+        }}
       >
         <div className="relative h-full w-full">
           <Image
@@ -49,7 +52,10 @@ export default function ProfileInfo({ user }: { user: Usuario }) {
             <h1 className="text-2xl text-start font-semibold">Sobre mim</h1>
             <span
               className="hover:bg-mercury p-2 rounded-lg cursor-pointer"
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => {
+                setIsModalOpen(true);
+                setIsUpdate(true);
+              }}
             >
               <Edit />
             </span>
@@ -62,16 +68,22 @@ export default function ProfileInfo({ user }: { user: Usuario }) {
       {isModalImageOpen && (
         <ModalUpdatePerfilImage
           userId={user.id}
-          isOpen={isModalImageOpen} 
-          onClose={() => setIsModalImageOpen(false)} 
+          isOpen={isModalImageOpen}
+          onClose={() => {
+            setIsModalImageOpen(false);
+            setIsUpdate(false);
+          }}
         />
       )}
 
       {isModalOpen && (
         <UserUpdateModal
           user={user}
-          isOpen={isModalOpen} 
-          onClose={() => setIsModalOpen(false)}
+          isOpen={isModalOpen}
+          onClose={() => {
+            setIsModalOpen(false);
+            setIsUpdate(false);
+          }}
         />
       )}
     </div>

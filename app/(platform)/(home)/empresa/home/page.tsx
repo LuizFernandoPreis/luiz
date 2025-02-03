@@ -31,7 +31,6 @@ export default function Home() {
       // Vagas
       const vagas = await fetch(`/api/empresa/vaga/?cnpj=${data.cnpj}`);
       const vagasData = await vagas.json();
-      console.log(vagasData);
       setVagas(vagasData);
     };
     fetchData();

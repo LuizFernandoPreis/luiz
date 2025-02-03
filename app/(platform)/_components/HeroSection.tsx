@@ -1,6 +1,4 @@
-import { SearchIcon } from "lucide-react";
 import SearchBar from "./searchBar";
-import { useApp } from "../contexts/ctxHome";
 
 export default function HeroSection() {
 
