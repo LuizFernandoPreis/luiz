@@ -6,16 +6,17 @@ import { cn } from "@/lib/utlis";
 import { EmpresaSchema } from "@/actions/empresa/schema";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import InputMask from "react-input-mask";
 
 type EmpresaFormData = z.infer<typeof EmpresaSchema>;
 
 export default function EmpresaForm() {
   const router = useRouter();
-  const { 
-    register, 
-    handleSubmit, 
-    formState: { errors, isSubmitting }, 
-    reset 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
   } = useForm<EmpresaFormData>({
     resolver: zodResolver(EmpresaSchema),
   });
@@ -30,7 +31,7 @@ export default function EmpresaForm() {
         alert("Usuário não encontrado na sessão.");
         return;
       }
-      const requestData = { ...data, usuarioId: session.data.user.id }; 
+      const requestData = { ...data, usuarioId: session.data.user.id };
 
       const empresaResponse = await fetch("/api/empresa", {
         method: "POST",
@@ -45,14 +46,14 @@ export default function EmpresaForm() {
       const papelResponse = await fetch("/api/usuario/papel", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: session.data.user.id ,papel: "J" }),
+        body: JSON.stringify({ id: session.data.user.id, papel: "J" }),
       });
 
       if (!papelResponse.ok) {
         throw new Error("Erro ao atualizar papel do usuário.");
       }
-      
-      window.location.href = '/perfil';
+
+      window.location.href = "/perfil";
       reset();
       router.push("/perfil");
     } catch (error) {
@@ -82,23 +83,28 @@ export default function EmpresaForm() {
               errors.nome ? "border-red-500 ring-red-300" : "border-gray-300"
             )}
           />
-          {errors.nome && <p className="text-red-500 text-sm">{errors.nome.message}</p>}
+          {errors.nome && (
+            <p className="text-red-500 text-sm">{errors.nome.message}</p>
+          )}
         </div>
 
         <div className="flex flex-col space-y-1">
           <label htmlFor="cnpj" className="font-medium">
             CNPJ
           </label>
-          <input
+          <InputMask
+            mask="99.999.999/9999-99"
             {...register("cnpj")}
             id="cnpj"
-            type="text"
             className={cn(
               "p-3 rounded-md border bg-gray-50 focus:outline-none focus:ring-2",
               errors.cnpj ? "border-red-500 ring-red-300" : "border-gray-300"
             )}
           />
-          {errors.cnpj && <p className="text-red-500 text-sm">{errors.cnpj.message}</p>}
+          ;
+          {errors.cnpj && (
+            <p className="text-red-500 text-sm">{errors.cnpj.message}</p>
+          )}
         </div>
 
         <div className="flex flex-col space-y-1">
@@ -111,10 +117,14 @@ export default function EmpresaForm() {
             rows={4}
             className={cn(
               "p-3 rounded-md border bg-gray-50 focus:outline-none focus:ring-2",
-              errors.descricao ? "border-red-500 ring-red-300" : "border-gray-300"
+              errors.descricao
+                ? "border-red-500 ring-red-300"
+                : "border-gray-300"
             )}
           />
-          {errors.descricao && <p className="text-red-500 text-sm">{errors.descricao.message}</p>}
+          {errors.descricao && (
+            <p className="text-red-500 text-sm">{errors.descricao.message}</p>
+          )}
         </div>
 
         <div className="flex justify-end space-x-4 mt-8">
@@ -130,13 +140,21 @@ export default function EmpresaForm() {
             disabled={isSubmitting}
             className={cn(
               "px-4 py-2 rounded-md font-medium transition",
-              isSubmitting ? "bg-gray-300" : "bg-blue-500 text-white hover:bg-blue-600"
+              isSubmitting
+                ? "bg-gray-300"
+                : "bg-blue-500 text-white hover:bg-blue-600"
             )}
           >
             {isSubmitting ? "Enviando..." : "Cadastrar"}
           </button>
         </div>
-        <input id="id" {...register('usuarioId')} type="text" hidden value={session.data?.user?.id}/>
+        <input
+          id="id"
+          {...register("usuarioId")}
+          type="text"
+          hidden
+          value={session.data?.user?.id}
+        />
       </form>
     </div>
   );
