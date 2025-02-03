@@ -199,7 +199,7 @@ export default function VagaForm() {
           <div className="flex w-full justify-end">
             <button
               type="submit"
-              className="bg-alternate text-white rounded p-2 w-full sm:w-2/5 hover:bg-alternateDark"
+              className="bg-primary text-white rounded p-2 w-full sm:w-2/5 hover:bg-alternateDark"
             >
               Criar Vaga
             </button>
