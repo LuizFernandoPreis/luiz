@@ -26,6 +26,7 @@ export default function EmpresaForm() {
   const onSubmit = async (data: EmpresaFormData) => {
     try {
       data = { ...data, cnpj: data.cnpj.replace(/\D/g, "") };
+      console.log(data)
 
       if (!session.data?.user?.id) {
         alert("Usuário não encontrado na sessão.");

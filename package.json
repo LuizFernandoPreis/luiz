@@ -24,6 +24,7 @@
     "next-auth": "^4.24.7",
     "node-fetch": "^3.3.2",
     "nodemailer": "^6.9.16",
+    "npm-check-updates": "^17.1.14",
     "prisma": "^5.19.1",
     "react": "^18",
     "react-dom": "^18",
